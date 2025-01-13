@@ -18,13 +18,14 @@ class GameTileViewModel : ViewModel() {
 
     fun topRated(): LiveData<List<GameTile>> {
         viewModelScope.launch {
-            runCatching {
-                val tiles = getTopRatedTiles().map {
-                    it.copy(cover = Uri.fromFile(downloadImage(it.cover.toString())))
-                }
-
-                topRatedTiles.value = tiles
+            val tiles = getTopRatedTiles().map {
+                it.copy(cover = downloadImage(it.cover.toString())
+                    .map(Uri::fromFile)
+                    .unfold { it.cover }
+                )
             }
+
+            topRatedTiles.value = tiles
         }
 
         return topRatedTiles

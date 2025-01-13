@@ -1,16 +1,18 @@
 package com.github.freitzzz.gameboydb.data.repository
 
 import android.content.Context
+import android.net.Uri
+import com.github.freitzzz.gameboydb.core.DownloadError
+import com.github.freitzzz.gameboydb.core.Left
+import com.github.freitzzz.gameboydb.core.OperationResult
+import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.data.http.NetworkingClient
-import com.github.freitzzz.gameboydb.data.http.Right
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.util.UUID
 
 interface AssetsRepository {
-    suspend fun download(url: String): File
+    suspend fun download(url: String): OperationResult<File>
 }
 
 class NetworkingAssetsRepository(
@@ -18,20 +20,24 @@ class NetworkingAssetsRepository(
     private val context: Context,
     private val scope: CoroutineScope,
 ) : AssetsRepository {
-    override suspend fun download(url: String): File {
+    override suspend fun download(url: String): OperationResult<File> {
         return runBlocking(scope.coroutineContext) {
-            val result = client.download(url)
-            if (result !is Right) {
-                // todo: use monads
-                throw Exception("todo: failed to download")
-            }
+            val filename = Uri.parse(url)?.path?.substringAfterLast('/')
+                ?: return@runBlocking Left(DownloadError("not a valid url (=> $url)"))
 
             val dir = context.cacheDir
-            // todo: cache by filename
-            val file = File(dir, UUID.randomUUID().toString())
-            file.writeBytes(result.value.body)
+            val files = dir.listFiles { it -> it.path.endsWith(filename) }
 
-            file
+            if (files != null && files.isNotEmpty()) {
+                return@runBlocking Right(files[0])
+            }
+
+            val result = client.download(url)
+            result.map {
+                val file = File(dir, filename)
+                file.writeBytes(it.body)
+                return@map file
+            }
         }
     }
 }

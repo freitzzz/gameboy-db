@@ -1,19 +1,18 @@
 package com.github.freitzzz.gameboydb.data.http
 
+import com.github.freitzzz.gameboydb.core.Left
+import com.github.freitzzz.gameboydb.core.NoInternetConnectionError
+import com.github.freitzzz.gameboydb.core.OperationError
+import com.github.freitzzz.gameboydb.core.OperationResult
+import com.github.freitzzz.gameboydb.core.Right
+import com.github.freitzzz.gameboydb.core.TimeoutError
+import com.github.freitzzz.gameboydb.core.UnknownError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.URL
-import java.security.KeyManagementException
-import java.security.NoSuchAlgorithmException
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
-import javax.net.ssl.HttpsURLConnection
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 const val DEFAULT_TIMEOUT_DURATION: Int = 5 * 60 * 1000 // 5 minutes in milliseconds
 
@@ -25,7 +24,7 @@ open class NetworkingClient(
         endpoint: String,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ): Either<RequestError, Response> {
+    ):OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.GET, uri, headers = headers))
     }
@@ -36,7 +35,7 @@ open class NetworkingClient(
         data: String? = null,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ): Either<RequestError, Response> {
+    ):OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.POST, uri, contentType, data, headers))
     }
@@ -47,7 +46,7 @@ open class NetworkingClient(
         data: String? = null,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ): Either<RequestError, Response> {
+    ):OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.PUT, uri, contentType, data, headers))
     }
@@ -56,7 +55,7 @@ open class NetworkingClient(
         endpoint: String,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ): Either<RequestError, Response> {
+    ):OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.DELETE, uri, headers = headers))
     }
@@ -64,11 +63,11 @@ open class NetworkingClient(
     suspend fun download(
         url: String,
         headers: Map<String, String>? = null,
-    ): Either<RequestError, Response> {
+    ):OperationResult<Response> {
         return send(Request(HttpVerb.GET, url, headers = headers))
     }
 
-    private suspend fun send(request: Request): Either<RequestError, Response> {
+    private suspend fun send(request: Request): OperationResult<Response> {
         var connection: HttpURLConnection? = null
         return try {
             val url = URL(request.uri)
@@ -104,14 +103,14 @@ open class NetworkingClient(
             )
             Right(response)
         } catch (e: SocketTimeoutException) {
-            Left(RequestError.TimeoutError("Request timed out"))
+            Left(TimeoutError("Request timed out"))
         } catch (e: IOException) {
             e.printStackTrace()
 
-            Left(RequestError.NoInternetConnectionError("No internet connection"))
+            Left(NoInternetConnectionError("No internet connection"))
         } catch (e: Exception) {
             e.printStackTrace()
-            Left(RequestError.UnknownError(e.message ?: "Unknown error"))
+            Left(UnknownError(e.message ?: "Unknown error"))
         } finally {
             connection?.disconnect()
         }
@@ -131,18 +130,15 @@ open class NetworkingClient(
         } else {
             urlBuilder.append(endpoint)
         }
+
         queryParameters?.let {
             urlBuilder.append("?")
             urlBuilder.append(it.entries.joinToString("&") { (key, value) -> "$key=$value" })
         }
+
         return urlBuilder.toString()
     }
 }
-
-// Supporting classes and enums
-sealed class Either<out L, out R>
-class Left<out L>(val value: L) : Either<L, Nothing>()
-class Right<out R>(val value: R) : Either<Nothing, R>()
 
 enum class HttpVerb {
     GET, POST, PUT, DELETE
@@ -182,14 +178,8 @@ data class Response(
     }
 }
 
-sealed class RequestError(val message: String) {
-    class TimeoutError(message: String) : RequestError(message)
-    class NoInternetConnectionError(message: String) : RequestError(message)
-    class UnknownError(message: String) : RequestError(message)
-}
-
 interface Interceptor {
     fun onRequest(request: Request): Request
     fun onResponse(response: Response)
-    fun onError(error: RequestError)
+    fun onError(error: OperationError)
 }
