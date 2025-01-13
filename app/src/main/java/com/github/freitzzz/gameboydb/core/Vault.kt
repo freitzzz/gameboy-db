@@ -1,7 +1,6 @@
 package com.github.freitzzz.gameboydb.core
 
 import java.lang.reflect.Type
-import kotlin.reflect.KProperty
 
 sealed class TypedVault<T> {
     val container = mutableMapOf<Type, T>()
@@ -14,11 +13,7 @@ sealed class TypedVault<T> {
     inline fun <reified S: T> get() = lookup<S>()!!
 }
 
-class Vault: TypedVault<Any>() {
-    inline operator fun<T, reified V: Any> getValue(nothing: T?, property: KProperty<*>): V {
-        return vault().get<V>()
-    }
-}
+class Vault: TypedVault<Any>()
 
 private val vault = Vault()
 fun vault() = vault

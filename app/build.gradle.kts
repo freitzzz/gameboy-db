@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-
     // AndroidX, SDK
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -51,6 +50,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
