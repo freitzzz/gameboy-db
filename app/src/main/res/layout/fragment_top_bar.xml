@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/fragment_top_bar"
-    tools:context=".TopBar">
+    tools:context=".fragment.TopBar">
 
     <TextView
         android:id="@+id/textView"

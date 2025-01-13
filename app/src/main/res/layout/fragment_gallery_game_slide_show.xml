@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_gallery_game_slide_show"
-    tools:context=".GalleryGameSlideShow">
+    tools:context=".fragment.GalleryGameSlideShow">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

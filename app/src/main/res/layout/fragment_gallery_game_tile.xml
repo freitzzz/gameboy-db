@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_gallery_game_tile"
     android:orientation="vertical"
-    tools:context=".GalleryGameTile">
+    tools:context=".fragment.GalleryGameTile">
     
     <ImageView
         android:id="@+id/gallery_game_tile_cover"
