@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_gallery_game_tile"
+    android:orientation="vertical"
+    tools:context=".GalleryGameTile">
+    
+    <ImageView
+        android:id="@+id/gallery_game_tile_cover"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/game_cover_content_description"
+        android:layout_marginBottom="@dimen/large_gap"
+        android:background="@drawable/game_cover_drawable"
+        android:src="@drawable/database_bold" />
+    
+    <TextView
+        android:id="@+id/gallery_game_tile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_name_placeholder"
+        android:textStyle="bold"
+        android:textSize="@dimen/normal_text" />
+
+    <TextView
+        android:id="@+id/gallery_game_tile_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_gap"
+        android:text="@string/game_genre_placeholder"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/normal_text" />
+
+</LinearLayout>
