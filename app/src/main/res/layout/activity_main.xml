@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@id/fragment_gallery_game_slide_show"
         android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:layout_marginTop="@dimen/normal_gap"
         tools:layout="@layout/fragment_gallery_game_slide_show"/>
 
 </LinearLayout>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/gallery_cover"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_gallery_game_tile"
     android:orientation="vertical"
     tools:context=".fragment.GalleryGameTile">
-    
-    <ImageView
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/gallery_game_tile_cover"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="@dimen/gallery_cover"
+        android:layout_height="@dimen/gallery_cover"
         android:contentDescription="@string/game_cover_content_description"
         android:layout_marginBottom="@dimen/large_gap"
-        android:background="@drawable/game_cover_drawable"
-        android:src="@drawable/database_bold" />
-    
+        android:scaleType="centerCrop"
+        android:src="@drawable/cover"
+        app:shapeAppearance="@style/rounded_shape" />
+
     <TextView
         android:id="@+id/gallery_game_tile_name"
         android:layout_width="wrap_content"
