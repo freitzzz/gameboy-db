@@ -1,6 +1,6 @@
 package com.github.freitzzz.gameboydb.domain
 
-import com.github.freitzzz.gameboydb.data.TilesRepository
+import com.github.freitzzz.gameboydb.data.repository.TilesRepository
 import com.github.freitzzz.gameboydb.data.model.GameTile
 
 class GetTopRatedTiles(

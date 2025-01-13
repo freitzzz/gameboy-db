@@ -4,6 +4,7 @@ import android.content.Context
 import com.github.freitzzz.gameboydb.data.http.NetworkingClient
 import com.github.freitzzz.gameboydb.data.http.Right
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.util.UUID

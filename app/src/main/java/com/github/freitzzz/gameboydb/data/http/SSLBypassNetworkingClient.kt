@@ -10,6 +10,7 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
+// https://gist.github.com/aembleton/889392
 class SSLBypassNetworkingClient(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()

@@ -7,6 +7,6 @@ import com.github.freitzzz.gameboydb.di.register
 class Application: Application() {
     override fun onCreate() {
         super.onCreate()
-        register(vault())
+        register(vault(), this.applicationContext)
     }
 }

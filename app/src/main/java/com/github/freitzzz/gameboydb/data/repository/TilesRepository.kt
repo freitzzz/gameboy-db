@@ -15,7 +15,7 @@ class FakeTilesRepository : TilesRepository {
                 title = "Pokemon Red",
                 description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
                 rating = 9.3f,
-                cover = "https://static.wikia.nocookie.net/nintendo/images/5/59/Pokemon_Red_%28NA%29.png/revision/latest/scale-to-width-down/1000?cb=20240413173729&path-prefix=en".toUri(),
+                cover = "https://cdn.mobygames.com/90e31a40-aba5-11ed-9e18-02420a00019a.webp".toUri(),
                 screenshots = arrayListOf(),
                 gameplay = "",
                 genres = arrayListOf(
@@ -24,14 +24,30 @@ class FakeTilesRepository : TilesRepository {
             ),
             GameTile(
                 id = "game-id-2",
-                title = "Tommy Jerry",
+                title = "Kirby's Dream Land 2",
                 description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
                 rating = 9.3f,
-                cover = "https://static.wikia.nocookie.net/nintendo/images/5/59/Pokemon_Red_%28NA%29.png/revision/latest/scale-to-width-down/1000?cb=20240413173729&path-prefix=en".toUri(),
+                cover = "https://cdn.mobygames.com/covers/34622-kirbys-dream-land-2-game-boy-front-cover.jpg".toUri(),
                 screenshots = arrayListOf(),
                 gameplay = "",
                 genres = arrayListOf(
-                    "RPG"
+                    "Platformer",
+                    "RPG",
+                    "Action",
+                    "Fantasy",
+                    "Nintendo"
+                ),
+            ),
+            GameTile(
+                id = "game-id-3",
+                title = "Donkey Kong Land",
+                description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
+                rating = 9.3f,
+                cover = "https://cdn.mobygames.com/8b6c7a7c-aba8-11ed-b9a3-02420a000197.webp".toUri(),
+                screenshots = arrayListOf(),
+                gameplay = "",
+                genres = arrayListOf(
+                    "Platformer"
                 ),
             )
         )
