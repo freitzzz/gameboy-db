@@ -8,7 +8,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -59,7 +58,7 @@ class GameTilesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameTileViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_gallery_game_tile, parent, false)
+            .inflate(R.layout.gallery_game_tile, parent, false)
 
         itemView.layoutParams = LinearLayout.LayoutParams(itemView.layoutParams).apply {
             marginEnd = endMargin
