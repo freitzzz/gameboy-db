@@ -14,8 +14,9 @@
         android:layout_height="wrap_content" />
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:overScrollMode="never">
 
         <androidx.fragment.app.FragmentContainerView
@@ -25,4 +26,9 @@
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_feed" />
     </ScrollView>
+
+    <include
+        layout="@layout/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

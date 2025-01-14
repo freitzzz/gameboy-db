@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_feed_page"
+        android:enabled="true"
+        android:icon="@drawable/newspaper_clipping"
+        android:title="Feed" />
+    <item
+        android:id="@+id/menu_item_favorites_page"
+        android:enabled="true"
+        android:icon="@drawable/bookmark_simple"
+        android:title="Favorites" />
+
+    <item
+        android:id="@+id/menu_item_settings_page"
+        android:enabled="true"
+        android:icon="@drawable/gear"
+        android:title="Settings" />
+</menu>
