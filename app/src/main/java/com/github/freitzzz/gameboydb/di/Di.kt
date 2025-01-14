@@ -8,6 +8,7 @@ import com.github.freitzzz.gameboydb.data.repository.FakeTilesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
 import com.github.freitzzz.gameboydb.data.repository.TilesRepository
 import com.github.freitzzz.gameboydb.domain.DownloadImage
+import com.github.freitzzz.gameboydb.domain.GetControversialTiles
 import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,5 +36,6 @@ private fun registerDomain(
     vault: Vault,
 ) = vault.apply {
     store(GetTopRatedTiles(get()))
+    store(GetControversialTiles(get()))
     store(DownloadImage(get()))
 }

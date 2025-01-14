@@ -10,8 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_gallery_game_slide_show_recycler_view"
-        tools:listitem="@layout/fragment_gallery_game_tile"
         android:overScrollMode="never"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        tools:listitem="@layout/fragment_gallery_game_tile"
+        tools:itemCount="1"/>
 
 </FrameLayout>

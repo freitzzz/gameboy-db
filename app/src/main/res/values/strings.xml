@@ -5,4 +5,5 @@
     <string name="game_name_placeholder">Game Name</string>
     <string name="game_genre_placeholder">Game genre 1, 2, 3</string>
     <string name="top_rated">Top Rated</string>
+    <string name="controversial">Controversial</string>
 </resources>

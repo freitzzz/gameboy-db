@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +20,8 @@ import com.google.android.material.imageview.ShapeableImageView
 class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel = ViewModelProvider(requireActivity())[GameTileViewModel::class.java]
 
+        val viewModel = ViewModelProvider(this)[GameTileViewModel::class.java]
         val recyclerView = view.findViewById<RecyclerView>(
             R.id.fragment_gallery_game_slide_show_recycler_view
         )
@@ -32,7 +34,19 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context).apply {
             orientation = RecyclerView.HORIZONTAL
         }
-        viewModel.topRated().observe(viewLifecycleOwner) {
+
+        val parent = view.parent
+        if (parent !is FragmentContainerView) {
+            return
+        }
+
+        val data = when (parent.id) {
+            R.id.fragment_gallery_top_rated_game_slide_show -> viewModel.topRated()
+            R.id.fragment_gallery_controversial_game_slide_show -> viewModel.controversial()
+            else -> null
+        }
+
+        data?.observe(viewLifecycleOwner) {
             adapter.postAll(it)
         }
     }
@@ -73,7 +87,6 @@ class GameTileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (tile == null) {
             return
         }
-
 
         itemView.findViewById<TextView>(R.id.gallery_game_tile_name).text = tile.title
         itemView.findViewById<TextView>(R.id.gallery_game_tile_genre).text =

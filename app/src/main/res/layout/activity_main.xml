@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="@dimen/normal_gap"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@id/fragment_top_bar"
         android:name="com.github.freitzzz.gameboydb.fragment.TopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         tools:layout="@layout/fragment_top_bar" />
 
     <TextView
@@ -23,11 +24,27 @@
         android:textStyle="bold" />
 
     <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_gallery_top_rated_game_slide_show"
+        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@id/fragment_gallery_game_slide_show"
-        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
         android:layout_marginTop="@dimen/normal_gap"
-        tools:layout="@layout/fragment_gallery_game_slide_show"/>
+        tools:layout="@layout/fragment_gallery_game_slide_show" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_gap"
+        android:text="@string/controversial"
+        android:textSize="@dimen/normal_text"
+        android:textStyle="bold" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_gallery_controversial_game_slide_show"
+        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_gap"
+        tools:layout="@layout/fragment_gallery_game_slide_show" />
 
 </LinearLayout>
