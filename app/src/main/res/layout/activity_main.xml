@@ -11,37 +11,18 @@
     <include
         layout="@layout/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/top_rated"
-        android:textSize="@dimen/normal_text"
-        android:textStyle="bold" />
+        android:overScrollMode="never">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_gallery_top_rated_game_slide_show"
-        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_gap"
-        tools:layout="@layout/fragment_gallery_game_slide_show" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_gap"
-        android:text="@string/controversial"
-        android:textSize="@dimen/normal_text"
-        android:textStyle="bold" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_gallery_controversial_game_slide_show"
-        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_gap"
-        tools:layout="@layout/fragment_gallery_game_slide_show" />
-
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/feed_fragment"
+            android:name="com.github.freitzzz.gameboydb.fragment.FeedFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_feed" />
+    </ScrollView>
 </LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.FeedFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/top_rated"
+        android:textSize="@dimen/normal_text"
+        android:textStyle="bold" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_gallery_top_rated_game_slide_show"
+        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_gap"
+        tools:layout="@layout/fragment_gallery_game_slide_show" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_gap"
+        android:text="@string/controversial"
+        android:textSize="@dimen/normal_text"
+        android:textStyle="bold" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_gallery_controversial_game_slide_show"
+        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_gap"
+        tools:layout="@layout/fragment_gallery_game_slide_show" />
+</LinearLayout>
