@@ -42,6 +42,16 @@ typealias OperationResult<R> = Either<OperationError, R>
 
 suspend fun <R> runSafeSuspend(
     call: suspend () -> OperationResult<R>,
+): OperationResult<R> {
+    return try {
+        call()
+    } catch (error: Throwable) {
+        Left(Unknown(error.toString()))
+    }
+}
+
+suspend fun <R> runSafeSuspend(
+    call: suspend () -> OperationResult<R>,
     onError: ((error: Throwable) -> OperationError)? = null,
 ): OperationResult<R> {
     return try {
