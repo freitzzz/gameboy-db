@@ -18,16 +18,16 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:overScrollMode="never">
-
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/feed_fragment"
-            android:name="com.github.freitzzz.gameboydb.fragment.FeedFragment"
+            android:id="@+id/fragment_virtual_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:name="com.github.freitzzz.gameboydb.fragment.FeedFragment"
             tools:layout="@layout/fragment_feed" />
     </ScrollView>
 
     <include
+        android:id="@+id/bottom_bar"
         layout="@layout/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

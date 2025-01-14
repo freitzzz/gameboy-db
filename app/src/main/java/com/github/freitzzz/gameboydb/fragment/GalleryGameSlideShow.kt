@@ -20,7 +20,7 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel = ViewModelProvider(this)[GameTileViewModel::class.java]
+        val viewModel = ViewModelProvider(requireActivity())[GameTileViewModel::class.java]
         val recyclerView = view.findViewById<RecyclerView>(
             R.id.fragment_gallery_game_slide_show_recycler_view
         )

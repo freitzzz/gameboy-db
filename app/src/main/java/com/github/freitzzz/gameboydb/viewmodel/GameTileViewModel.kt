@@ -21,6 +21,10 @@ class GameTileViewModel : ViewModel() {
     private val controversialTiles = MutableLiveData<List<GameTile>>(arrayListOf())
 
     fun topRated(): LiveData<List<GameTile>> {
+        if (topRatedTiles.value?.isNotEmpty() == true) {
+            return topRatedTiles
+        }
+
         viewModelScope.launch {
             val tiles = getTopRatedTiles()
                 .unfold { arrayListOf() }
@@ -39,6 +43,10 @@ class GameTileViewModel : ViewModel() {
     }
 
     fun controversial(): LiveData<List<GameTile>> {
+        if (controversialTiles.value?.isNotEmpty() == true) {
+            return controversialTiles
+        }
+
         viewModelScope.launch {
             val tiles = getControversialTiles()
                 .unfold { arrayListOf() }
