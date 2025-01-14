@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragment_gallery_game_slide_show_recycler_view"
         tools:listitem="@layout/fragment_gallery_game_tile"
+        android:overScrollMode="never"
         android:orientation="horizontal" />
 
 </FrameLayout>
