@@ -20,7 +20,13 @@ class FakeTilesRepository : TilesRepository {
                     description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
                     rating = 9.3f,
                     cover = "https://cdn.mobygames.com/90e31a40-aba5-11ed-9e18-02420a00019a.webp".toUri(),
-                    screenshots = arrayListOf(),
+                    screenshots = arrayListOf(
+                        "https://cdn.mobygames.com/ca55231c-bed9-11ed-9c42-02420a000140.webp",
+                        "https://cdn.mobygames.com/cb90d258-bed9-11ed-9c42-02420a000140.webp",
+                        "https://cdn.mobygames.com/cc07421c-bed9-11ed-9c42-02420a000140.webp",
+                        "https://cdn.mobygames.com/cc74855c-bed9-11ed-9c42-02420a000140.webp",
+                        "https://cdn.mobygames.com/be38a1a8-bed9-11ed-9c42-02420a000140.webp"
+                    ).map { it.toUri() },
                     gameplay = "",
                     genres = arrayListOf(
                         "Role-playing"
