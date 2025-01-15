@@ -1,5 +1,6 @@
 package com.github.freitzzz.gameboydb.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
+import com.github.freitzzz.gameboydb.activity.GameDetailsActivity
 import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.navigation.navigateTo
 import com.github.freitzzz.gameboydb.viewmodel.GameTileViewModel
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -69,6 +72,10 @@ class GameTilesAdapter(
 
     override fun onBindViewHolder(holder: GameTileViewHolder, position: Int) {
         holder.bind(data[position])
+
+        holder.itemView.setOnClickListener {
+            it.context.navigateTo<GameDetailsActivity>(data[position])
+        }
     }
 
     override fun getItemCount(): Int {
