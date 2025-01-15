@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_rating_progress_indicator"
+        style="@style/circular_progress_indicator"
+        tools:progress="90" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_rating_text"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_alignStart="@id/game_rating_progress_indicator"
+        android:layout_alignTop="@id/game_rating_progress_indicator"
+        android:layout_alignEnd="@id/game_rating_progress_indicator"
+        android:layout_alignBottom="@id/game_rating_progress_indicator"
+        android:background="@android:color/transparent"
+        tools:text="9.3" />
+</RelativeLayout>
