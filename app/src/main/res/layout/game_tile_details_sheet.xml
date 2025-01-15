@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_tile_details_sheet_title"
+        android:textStyle="bold"
+        android:textSize="@dimen/extra_title_size"
+        tools:text="Pokémon Red" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_genres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/small_gap"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size"
+        tools:text="Fantasy, RPG"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/game_tile_details_sheet_description"
+        tools:text="Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        android:id="@+id/game_tile_details_sheet_screenshots"
+        android:overScrollMode="never"
+        android:orientation="horizontal"
+        tools:listitem="@layout/game_tile_details_screenshot"
+        tools:itemCount="1"/>
+</LinearLayout>
