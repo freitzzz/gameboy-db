@@ -11,7 +11,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/game_score"
+        layout="@layout/game_rating"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,10 +5,12 @@
     <dimen name="large_gap">16dp</dimen>
     <dimen name="indicator_thickness">2dp</dimen>
 
+    <dimen name="extra_title_size">32sp</dimen>
     <dimen name="title_size">20sp</dimen>
     <dimen name="subtitle_size">16sp</dimen>
 
     <dimen name="text_margin">16dp</dimen>
     
     <dimen name="gallery_cover">256dp</dimen>
+    <dimen name="game_tile_screenshot">96dp</dimen>
 </resources>
