@@ -4,7 +4,9 @@
     <dimen name="normal_gap">8dp</dimen>
     <dimen name="large_gap">16dp</dimen>
 
-    <dimen name="normal_text">20sp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="subtitle_size">16sp</dimen>
+
     <dimen name="text_margin">16dp</dimen>
     
     <dimen name="gallery_cover">256dp</dimen>

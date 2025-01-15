@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/navigable_top_bar_back_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_gap"
+        android:contentDescription="@string/back_icon_content_description"
+        android:src="@drawable/arrow_left_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
+
+    <TextView
+        android:id="@+id/navigable_top_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/top_bar_title_placeholder"
+        android:textAlignment="center"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/top_bar_subtitle_placeholder"
+        android:textAlignment="center"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigable_top_bar_title"
+        android:layout_marginTop="@dimen/small_gap"/>
+
+    <ImageView
+        android:id="@+id/navigable_top_bar_secondary_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/normal_gap"
+        android:contentDescription="@string/secondary_action_icon_content_description"
+        android:src="@drawable/play_circle_white"
+        app:layout_constraintEnd_toStartOf="@id/navigable_top_bar_primary_action"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
+
+    <ImageView
+        android:id="@+id/navigable_top_bar_primary_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/primary_action_icon_content_description"
+        android:src="@drawable/bookmark_simple_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

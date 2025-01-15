@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">GameboyDB</string>
     <string name="search_icon_content_description">Tap this icon to start searching games in the database.</string>
+    <string name="back_icon_content_description">Use this icon to go back to the previous page.</string>
+    <string name="primary_action_icon_content_description">Use this icon to trigger a primary action.</string>
+    <string name="secondary_action_icon_content_description">Use this icon to trigger a secondary action.</string>
     <string name="game_cover_content_description">This is the cover image of the game.</string>
     <string name="game_name_placeholder">Game Name</string>
     <string name="game_genre_placeholder">Game genre 1, 2, 3</string>
     <string name="top_rated">Top Rated</string>
     <string name="controversial">Controversial</string>
+    <string name="top_bar_title_placeholder">Title</string>
+    <string name="top_bar_subtitle_placeholder">Subtitle</string>
 </resources>
