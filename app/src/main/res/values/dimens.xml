@@ -3,6 +3,7 @@
     <dimen name="small_gap">4dp</dimen>
     <dimen name="normal_gap">8dp</dimen>
     <dimen name="large_gap">16dp</dimen>
+    <dimen name="indicator_thickness">2dp</dimen>
 
     <dimen name="title_size">20sp</dimen>
     <dimen name="subtitle_size">16sp</dimen>
