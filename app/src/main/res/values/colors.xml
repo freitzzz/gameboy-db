@@ -6,6 +6,22 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="gray">#c3c3c3</color>
     <color name="white">#FFFFFFFF</color>
     <color name="subtitle">#909294</color>
+    <color name="red">#d20f39</color>
+
+    <!-- Material Colors (https://lh3.googleusercontent.com/k6WO1fd7T40A9JvSVfHqs0CPLFyTEDCecsVGxEDhOaTP0wUTPYOVVkxt60hKxBprgNoMqs8OyKqtlaQ4tDBtQJs-fTcZrpZEjxhUVQ=w1064-v0) -->
+    <color name="primary">@color/black</color>
+    <color name="primaryVariant">#060606</color>
+    <color name="secondary">@color/gray</color>
+    <color name="secondaryVariant">#c3c3ff</color>
+    <color name="background">@color/white</color>
+    <color name="surface">@color/white</color>
+    <color name="error">@color/red</color>
+    <color name="onPrimary">@color/white</color>
+    <color name="onSecondary">@color/black</color>
+    <color name="onBackground">@color/black</color>
+    <color name="onSurface">@color/black</color>
+    <color name="onError">@color/white</color>
 </resources>
