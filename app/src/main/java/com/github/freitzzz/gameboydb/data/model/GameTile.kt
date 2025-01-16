@@ -9,9 +9,17 @@ data class GameTile(
     val id: String,
     val title: String,
     val description: String,
-    val rating: Float,
-    val cover: Uri,
+    val releaseYear: Int,
     val genres: List<String>,
+    val developers: List<String>,
+    val publishers: List<String>,
+    val platforms: List<String>,
     val screenshots: List<Uri>,
-    val gameplay: String,
-): Parcelable
+    val esrb: ESRB = ESRB.RATING_PENDING,
+    val promo: String? = null,
+    val trivia: String? = null,
+    val rating: Float? = null,
+    val critics: Float? = null,
+    val cover: Uri? = null,
+    val gameplay: Uri? = null
+) : Parcelable
