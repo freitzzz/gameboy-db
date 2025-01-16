@@ -1,5 +1,10 @@
 package com.github.freitzzz.gameboydb.core
 
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.verify
 import com.github.freitzzz.gameboydb.core.UnknownError as Unknown
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -31,5 +36,29 @@ class EitherTest {
 
         val result = runSafeSuspend(call = { Right("wifi is working!!") }) { error }
         assertEquals(Right<OperationError, String>("wifi is working!!"), result)
+    }
+
+    @Test
+    fun `each calls callback if either is right handed`() {
+        val callback = mockk<(String) -> Unit>()
+        val value = "result data"
+        val either = Right<OperationError, String>(value)
+
+        every { callback.invoke(any()) } just runs
+
+        either.each(callback)
+        verify { callback(value) }
+    }
+
+    @Test
+    fun `each does not call callback if either is left handed`() {
+        val callback = mockk<(String) -> Unit>()
+        val value = NoInternetConnectionError("turn on wifi!!")
+        val either = Left<OperationError, String>(value)
+
+        every { callback.invoke(any()) } just runs
+
+        either.each(callback)
+        verify(exactly = 0) { callback(any()) }
     }
 }

@@ -33,6 +33,13 @@ sealed class Either<L, R> {
             is Right -> Right(this.value)
         }
     }
+
+    fun each(block: (r: R) -> Unit) {
+        when (this) {
+            is Right -> block(this.value)
+            is Left -> return
+        }
+    }
 }
 
 data class Left<L, R>(val value: L) : Either<L, R>()
