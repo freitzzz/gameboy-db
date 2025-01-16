@@ -21,7 +21,7 @@
 
         <!-- TODO: set hardcoded values in activity -->
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/game_tile_details_sheet"
+            android:id="@+id/game_details_sheet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_rect_shape"
@@ -33,7 +33,7 @@
             android:overScrollMode="never">
 
             <include
-                layout="@layout/game_tile_details_sheet"
+                layout="@layout/game_details_sheet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/large_gap" />

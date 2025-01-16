@@ -10,7 +10,7 @@
     <string name="top_rated">Top Rated</string>
     <string name="controversial">Controversial</string>
     <string name="play_game">Play Game</string>
-    <string name="game_tile_screenshot_content_description">TODO</string>
+    <string name="game_screenshot_content_description">TODO</string>
     <string name="promo">Promo</string>
     <string name="trivia">Trivia</string>
     <string name="esrb_rating">ESRB Rating</string>

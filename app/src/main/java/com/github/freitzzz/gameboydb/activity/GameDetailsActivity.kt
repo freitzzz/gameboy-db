@@ -31,7 +31,7 @@ class GameDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_details)
 
         val tile = intent.get<Game>()!!
-        val sheet = BottomSheetBehavior.from(findViewById(R.id.game_tile_details_sheet))
+        val sheet = BottomSheetBehavior.from(findViewById(R.id.game_details_sheet))
         val displayMetrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(displayMetrics)
         this.windowManager.defaultDisplay.rotation
@@ -44,51 +44,51 @@ class GameDetailsActivity : AppCompatActivity() {
         println(location[0])
         println(location[1])*/
 
-        findViewById<TextView>(R.id.game_tile_details_sheet_release_year).text =
+        findViewById<TextView>(R.id.game_details_sheet_release_year).text =
             tile.releaseYear.toString()
         tile.promo?.let {
-            findViewById<View>(R.id.game_tile_details_sheet_promo_heading).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.game_tile_details_sheet_promo).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.game_tile_details_sheet_promo).text = it
+            findViewById<View>(R.id.game_details_sheet_promo_heading).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.game_details_sheet_promo).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.game_details_sheet_promo).text = it
         }
 
         tile.trivia?.let {
-            findViewById<View>(R.id.game_tile_details_sheet_trivia_heading).visibility =
+            findViewById<View>(R.id.game_details_sheet_trivia_heading).visibility =
                 View.VISIBLE
-            findViewById<TextView>(R.id.game_tile_details_sheet_trivia).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.game_tile_details_sheet_trivia).text = it
+            findViewById<TextView>(R.id.game_details_sheet_trivia).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.game_details_sheet_trivia).text = it
         }
 
         if (tile.developers.isNotEmpty()) {
-            findViewById<TextView>(R.id.game_tile_details_sheet_developers).apply {
+            findViewById<TextView>(R.id.game_details_sheet_developers).apply {
                 visibility = View.VISIBLE
                 text = tile.developers.joinToString("\n")
             }
         }
 
         if (tile.publishers.isNotEmpty()) {
-            findViewById<View>(R.id.game_tile_details_sheet_developers_heading).visibility =
+            findViewById<View>(R.id.game_details_sheet_developers_heading).visibility =
                 View.VISIBLE
-            findViewById<TextView>(R.id.game_tile_details_sheet_developers).apply {
+            findViewById<TextView>(R.id.game_details_sheet_developers).apply {
                 visibility = View.VISIBLE
                 text = tile.publishers.joinToString("\n")
             }
         }
 
-        findViewById<ImageView>(R.id.game_tile_details_sheet_esrb_rating).setImageDrawable(
+        findViewById<ImageView>(R.id.game_details_sheet_esrb_rating).setImageDrawable(
             resources.getDrawable(tile.esrb.drawable())
         )
 
 
-        findViewById<TextView>(R.id.game_tile_details_sheet_title).apply {
+        findViewById<TextView>(R.id.game_details_sheet_title).apply {
             text = tile.title
         }
 
-        findViewById<TextView>(R.id.game_tile_details_sheet_genres).apply {
+        findViewById<TextView>(R.id.game_details_sheet_genres).apply {
             text = tile.genres.joinToString(", ")
         }
 
-        findViewById<TextView>(R.id.game_tile_details_sheet_platforms).apply {
+        findViewById<TextView>(R.id.game_details_sheet_platforms).apply {
             text = tile.platforms.joinToString("/ ")
         }
 
@@ -108,7 +108,7 @@ class GameDetailsActivity : AppCompatActivity() {
             text = tile?.rating.toString()
         }
 
-        findViewById<TextView>(R.id.game_tile_details_sheet_description).apply {
+        findViewById<TextView>(R.id.game_details_sheet_description).apply {
             text = tile?.description
         }
 
@@ -117,7 +117,7 @@ class GameDetailsActivity : AppCompatActivity() {
         }
 
         val recyclerView = findViewById<RecyclerView>(
-            R.id.game_tile_details_sheet_screenshots
+            R.id.game_details_sheet_screenshots
         )
 
         val adapter = GameScreenshotsAdapter(
@@ -147,7 +147,7 @@ class GameScreenshotsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameScreenshotViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.game_tile_details_screenshot, parent, false)
+            .inflate(R.layout.game_details_screenshot, parent, false)
 
         itemView.layoutParams = LinearLayout.LayoutParams(itemView.layoutParams).apply {
             marginEnd = endMargin
