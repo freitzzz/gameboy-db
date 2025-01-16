@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.activity.GameDetailsActivity
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.navigation.navigateTo
 import com.github.freitzzz.gameboydb.viewmodel.GameTileViewModel
 import com.google.android.material.imageview.ShapeableImageView
@@ -56,7 +56,7 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
 class GameTilesAdapter(
     private val endMargin: Int,
 ) : RecyclerView.Adapter<GameTileViewHolder>() {
-    private val data = arrayListOf<GameTile>()
+    private val data = arrayListOf<Game>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameTileViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
@@ -81,14 +81,14 @@ class GameTilesAdapter(
         return data.size
     }
 
-    fun postAll(tiles: List<GameTile>) {
+    fun postAll(tiles: List<Game>) {
         data.addAll(tiles)
         notifyItemChanged(data.size - 1)
     }
 }
 
 class GameTileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(tile: GameTile?) {
+    fun bind(tile: Game?) {
         if (tile == null) {
             return
         }

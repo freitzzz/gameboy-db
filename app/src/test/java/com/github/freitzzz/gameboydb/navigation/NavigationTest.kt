@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.github.freitzzz.gameboydb.activity.MainActivity
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -25,7 +25,7 @@ class NavigationTest {
     @Test
     fun `toBundle uses known key for putting GameTile in extras`() {
         val key = "game-tile"
-        val data = mockk<GameTile>()
+        val data = mockk<Game>()
         every { bundleOf(key to data) } returns mockk()
 
         data.toBundle()
@@ -71,7 +71,7 @@ class NavigationTest {
     @Test
     fun `navigateTo calls startActivity and applies bundle created from toBundle if a specific type is passed as data`() {
         val context = mockk<Context>()
-        val data = mockk<GameTile>()
+        val data = mockk<Game>()
         val bundle = mockk<Bundle>()
 
         every { context.startActivity(any()) } just runs

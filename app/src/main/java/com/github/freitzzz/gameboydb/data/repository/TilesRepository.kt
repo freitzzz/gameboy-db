@@ -4,18 +4,18 @@ import androidx.core.net.toUri
 import com.github.freitzzz.gameboydb.core.OperationResult
 import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.data.model.ESRB
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 
 interface TilesRepository {
-    suspend fun top(): OperationResult<List<GameTile>>
-    suspend fun controversial(): OperationResult<List<GameTile>>
+    suspend fun top(): OperationResult<List<Game>>
+    suspend fun controversial(): OperationResult<List<Game>>
 }
 
 class FakeTilesRepository : TilesRepository {
-    override suspend fun top(): OperationResult<List<GameTile>> {
+    override suspend fun top(): OperationResult<List<Game>> {
         return Right(
             arrayListOf(
-                GameTile(
+                Game(
                     id = "game-id-1",
                     title = "Pokemon Red",
                     description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
@@ -60,7 +60,7 @@ class FakeTilesRepository : TilesRepository {
                         "https://cdn.mobygames.com/be38a1a8-bed9-11ed-9c42-02420a000140.webp",
                     ).map { it.toUri() },
                 ),
-                GameTile(
+                Game(
                     id = "game-id-2",
                     title = "Kirby's Dream Land 2",
                     description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
@@ -79,7 +79,7 @@ class FakeTilesRepository : TilesRepository {
                         "Nintendo"
                     ),
                 ),
-                GameTile(
+                Game(
                     id = "game-id-3",
                     title = "Donkey Kong Land",
                     description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
@@ -98,10 +98,10 @@ class FakeTilesRepository : TilesRepository {
         )
     }
 
-    override suspend fun controversial(): OperationResult<List<GameTile>> {
+    override suspend fun controversial(): OperationResult<List<Game>> {
         return Right(
             arrayListOf(
-                GameTile(
+                Game(
                     id = "game-id-4",
                     title = "Men in Black: The Series",
                     description = "Evil alien races are infiltrating New York, and it's up to the Men in Black to stop them. In the game the player assume the role of rookie agent J as he single-handedly takes on the invasion in order to stop the mastermind Alpha (a mutated ex-MIB) and save Earth.",
@@ -116,7 +116,7 @@ class FakeTilesRepository : TilesRepository {
                         "Action"
                     ),
                 ),
-                GameTile(
+                Game(
                     id = "game-id-5",
                     title = "Shrek: Fairy Tale Freakdown",
                     description = "In this 2D one-on-one fighting game, you can choose to play as characters from the movie Shrek, including Shrek himself, the Gingerbread Man, Thelonius, and six other included personalities. All characters have their own signature moves, but as you move on through the quest more special powers are unlocked - these include speed, invincibility, and strength.",
@@ -131,7 +131,7 @@ class FakeTilesRepository : TilesRepository {
                         "Action"
                     ),
                 ),
-                GameTile(
+                Game(
                     id = "game-id-6",
                     title = "Soccer Mania",
                     description = "Soccer Mania is a soccer game with cartoon graphics. The game features six teams (Japan, USA, Brazil, England, Germany and France) and the player chooses one of them. The goal is to win a championship by defeating all other five teams, followed by a final match against the All-Star Team. There is only a part of the playfield shown at a time and the rest of the playfield scrolls - the goals are positioned vertically.",

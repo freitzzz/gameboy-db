@@ -8,7 +8,7 @@ import com.github.freitzzz.gameboydb.core.NoInternetConnectionError
 import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.core.Vault
 import com.github.freitzzz.gameboydb.core.vault
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
 import com.github.freitzzz.gameboydb.swallow
@@ -30,7 +30,7 @@ import org.junit.Test
 import java.io.File
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class GameTileViewModelTest {
+class GameViewModelTest {
     private val getTopRatedTiles = mockk<GetTopRatedTiles>()
     private val downloadImage = mockk<DownloadImage>()
 
@@ -63,7 +63,7 @@ class GameTileViewModelTest {
     fun `if getTopRatedTiles call returns Right, then downloadImage is called for every tile cover`() = runTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
-        val tile = mockk<GameTile>()
+        val tile = mockk<Game>()
         val tiles = arrayListOf(tile)
         val viewModel = GameTileViewModel()
 
@@ -80,7 +80,7 @@ class GameTileViewModelTest {
     fun `the original tile cover is used if downloadImage fails`() = runTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
-        val tile = mockk<GameTile>()
+        val tile = mockk<Game>()
         val tiles = arrayListOf(tile)
         val viewModel = GameTileViewModel()
         val error = DownloadError("404")
@@ -100,7 +100,7 @@ class GameTileViewModelTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
         val downloadedCoverUri = mockk<Uri>()
-        val tile = mockk<GameTile>()
+        val tile = mockk<Game>()
         val tiles = arrayListOf(tile)
         val viewModel = GameTileViewModel()
         val file = mockk<File>()

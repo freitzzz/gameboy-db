@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import kotlin.reflect.KClass
 
 /**
@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  * This list is used in [toBundle] to automatically create a bundle with a value.
  */
 val extraKeys = mapOf<KClass<*>, String>(
-    GameTile::class to "game-tile"
+    Game::class to "game-tile"
 )
 
 /**

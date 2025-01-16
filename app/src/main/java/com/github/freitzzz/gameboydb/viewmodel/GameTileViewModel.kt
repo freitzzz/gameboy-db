@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.freitzzz.gameboydb.core.vault
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetControversialTiles
 import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
@@ -17,10 +17,10 @@ class GameTileViewModel : ViewModel() {
     private val getControversialTiles by lazy { vault().get<GetControversialTiles>() }
     private val downloadImage by lazy { vault().get<DownloadImage>() }
 
-    private val topRatedTiles = MutableLiveData<List<GameTile>>(arrayListOf())
-    private val controversialTiles = MutableLiveData<List<GameTile>>(arrayListOf())
+    private val topRatedTiles = MutableLiveData<List<Game>>(arrayListOf())
+    private val controversialTiles = MutableLiveData<List<Game>>(arrayListOf())
 
-    fun topRated(): LiveData<List<GameTile>> {
+    fun topRated(): LiveData<List<Game>> {
         if (topRatedTiles.value?.isNotEmpty() == true) {
             return topRatedTiles
         }
@@ -42,7 +42,7 @@ class GameTileViewModel : ViewModel() {
         return topRatedTiles
     }
 
-    fun controversial(): LiveData<List<GameTile>> {
+    fun controversial(): LiveData<List<Game>> {
         if (controversialTiles.value?.isNotEmpty() == true) {
             return controversialTiles
         }

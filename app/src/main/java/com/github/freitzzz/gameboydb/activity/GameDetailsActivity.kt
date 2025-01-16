@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.data.model.ESRB
-import com.github.freitzzz.gameboydb.data.model.GameTile
+import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.navigation.get
 import com.github.freitzzz.gameboydb.viewmodel.ImageLoaderViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -30,7 +30,7 @@ class GameDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_details)
 
-        val tile = intent.get<GameTile>()!!
+        val tile = intent.get<Game>()!!
         val sheet = BottomSheetBehavior.from(findViewById(R.id.game_tile_details_sheet))
         val displayMetrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(displayMetrics)

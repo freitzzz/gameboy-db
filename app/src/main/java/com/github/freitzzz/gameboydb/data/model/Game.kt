@@ -4,8 +4,11 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+/**
+ * Complete schema of game metadata.
+ */
 @Parcelize
-data class GameTile(
+data class Game(
     val id: String,
     val title: String,
     val description: String,
