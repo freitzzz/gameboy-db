@@ -46,19 +46,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/normal_gap"
         android:contentDescription="@string/secondary_action_icon_content_description"
-        android:src="@drawable/play_circle_white"
         app:layout_constraintEnd_toStartOf="@id/navigable_top_bar_primary_action"
         app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
-        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title"
+        tools:src="@drawable/play_circle_white" />
 
     <ImageView
         android:id="@+id/navigable_top_bar_primary_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/primary_action_icon_content_description"
-        android:src="@drawable/bookmark_simple_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
-        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title"
+        tools:src="@drawable/bookmark_simple_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

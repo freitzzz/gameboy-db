@@ -6,8 +6,14 @@
     <string name="secondary_action_icon_content_description">Use this icon to trigger a secondary action.</string>
     <string name="game_cover_content_description">This is the cover image of the game.</string>
     <string name="play_gameplay_button_content_description">Use this action to watch the game gameplay.</string>
+    <string name="game_esrb_rating_content_description">This is the ESRB rating of the game.</string>
     <string name="top_rated">Top Rated</string>
     <string name="controversial">Controversial</string>
     <string name="play_game">Play Game</string>
     <string name="game_tile_screenshot_content_description">TODO</string>
+    <string name="promo">Promo</string>
+    <string name="trivia">Trivia</string>
+    <string name="esrb_rating">ESRB Rating</string>
+    <string name="developers">Developers</string>
+    <string name="publishers">Publishers</string>
 </resources>

@@ -7,35 +7,138 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/game_tile_details_sheet_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/game_tile_details_sheet_title"
-        android:textStyle="bold"
         android:textSize="@dimen/extra_title_size"
+        android:textStyle="bold"
         tools:text="Pokémon Red" />
 
     <TextView
         android:id="@+id/game_tile_details_sheet_genres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/small_gap"
+        android:layout_marginTop="@dimen/small_gap"
         android:textColor="@color/subtitle"
         android:textSize="@dimen/subtitle_size"
-        tools:text="Fantasy, RPG"/>
+        tools:text="Fantasy, RPG" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_platforms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size"
+        tools:text="Game Boy/Game Boy Color" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_release_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size"
+        tools:text="1998" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_gap"
+        tools:text="Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/game_tile_details_sheet_screenshots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        tools:itemCount="1"
+        tools:listitem="@layout/game_tile_details_screenshot" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_promo_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/promo"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_promo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Gotta catch 'em all!\n\nYou've finally been granted your Pokemon trainer's license. Now, it's time to head out to become the world's greatest Pokemon trainer. It's going to take all you've got to collect 150 Pokemon in this enormous world. Catch and train monsters like the shockingly-cute Pikachu. Face off against Blastoise's torrential water cannons. Stand strong when facing Pidgeot's stormy Gust. Trade with friends and watch your Pokemon evolve. Important - no single Pokemon can win it all. Can you develop the ultimate Pokemon strategy to defeat the eight GYM Leaders and become the great Pokemon Master of all time?\n\n* Collect up to 139 different Pokemon playing the Red version. Using the Game Link cable (sold separately), trade with a friend who has the Blue version to capture all 150.\n\n*You'll need to use both versions (Red and Blue) to collect all of the Pokemon.\n\nTest your training skills by battling against a friend using the Game Link cable (sold separately)."
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_trivia_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trivia"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_trivia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Development\n\nThe man behind Pocket Monsters, Satoshi Tajiri, had been working on the game a full five years (from 1991 to 1996) before he finally decided to release it after he was satisfied enough with it. No one at Nintendo expected the game to be a hit, but it was."
+        tools:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/game_tile_details_sheet_description"
-        tools:text="Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters." />
+        android:id="@+id/game_tile_details_sheet_developers_heading"
+        android:text="@string/developers"
+        android:textSize="@dimen/title_size"
+        android:visibility="gone"
+        android:textStyle="bold"
+        tools:visibility="visible"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@+id/game_tile_details_sheet_developers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/normal_gap"
-        android:id="@+id/game_tile_details_sheet_screenshots"
-        android:overScrollMode="never"
-        android:orientation="horizontal"
-        tools:listitem="@layout/game_tile_details_screenshot"
-        tools:itemCount="1"/>
+        android:visibility="gone"
+        tools:text="Nintendo Co., Ltd.\nGame Freak, Inc."
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_publishers_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/publishers"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/game_tile_details_sheet_publishers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:text="Nintendo of America Inc.\nNintendo Co., Ltd.\nNintendo of Europe GmbH"
+        tools:visibility="visible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/esrb_rating"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/game_tile_details_sheet_esrb_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/game_esrb_rating_content_description"
+        android:src="@drawable/esrb_rating_pending" />
 </LinearLayout>

@@ -28,7 +28,9 @@
             android:maxHeight="700dp"
             app:behavior_hideable="false"
             app:behavior_peekHeight="300dp"
-            app:layout_behavior="@string/bottom_sheet_behavior">
+            android:paddingBottom="@dimen/extra_extra_large_gap"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            android:overScrollMode="never">
 
             <include
                 layout="@layout/game_tile_details_sheet"
@@ -36,15 +38,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/large_gap" />
         </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            style="@style/floating_action_button"
-            android:tint="@color/black"
-            android:contentDescription="@string/play_gameplay_button_content_description"
-            app:layout_anchor="@id/game_tile_details_sheet"
-            app:layout_anchorGravity="top|center"
-            app:srcCompat="@drawable/play_circle_white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

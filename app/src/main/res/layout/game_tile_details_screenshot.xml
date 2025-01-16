@@ -6,5 +6,6 @@
     android:layout_height="@dimen/game_tile_screenshot"
     android:contentDescription="@string/game_tile_screenshot_content_description"
     app:shapeAppearance="@style/rounded_shape"
+    android:scaleType="centerCrop"
     android:src="@drawable/cover"
     tools:src="@drawable/cover"/>
