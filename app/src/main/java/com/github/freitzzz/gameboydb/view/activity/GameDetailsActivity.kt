@@ -20,6 +20,7 @@ import com.github.freitzzz.gameboydb.view.view
 import com.github.freitzzz.gameboydb.view.viewModel
 import com.github.freitzzz.gameboydb.view.viewOf
 import com.github.freitzzz.gameboydb.view.viewmodel.ImageLoaderViewModel
+import com.github.freitzzz.gameboydb.view.viewmodel.cached
 import com.github.freitzzz.gameboydb.view.withRes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -73,7 +74,7 @@ class GameDetailsActivity : AppCompatActivity() {
         val adapter = ImagesAdapter(
             layoutId = R.layout.game_details_screenshot,
             endMargin = recyclerView.resources.getDimension(R.dimen.large_gap).toInt(),
-            data = game.screenshots.toMutableList()
+            data = game.screenshots.cached().toMutableList()
         )
 
         recyclerView.adapter = adapter
@@ -81,7 +82,6 @@ class GameDetailsActivity : AppCompatActivity() {
             orientation = RecyclerView.HORIZONTAL
         }
 
-        adapter.postAll(game.screenshots)
         val viewModel = this.viewModel<ImageLoaderViewModel>()
         if (!viewModel.loaded(game.screenshots)) {
             viewModel.invoke(game.screenshots).observe(this) {
