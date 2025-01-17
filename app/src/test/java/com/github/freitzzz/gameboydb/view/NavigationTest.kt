@@ -24,7 +24,7 @@ class NavigationTest {
 
     @Test
     fun `toBundle uses known key for putting GameTile in extras`() {
-        val key = "game-tile"
+        val key = "game"
         val data = mockk<Game>()
         every { bundleOf(key to data) } returns mockk()
 

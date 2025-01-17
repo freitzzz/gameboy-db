@@ -1,4 +1,4 @@
-package com.github.freitzzz.gameboydb.viewmodel
+package com.github.freitzzz.gameboydb.view.viewmodel
 
 import android.net.Uri
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
