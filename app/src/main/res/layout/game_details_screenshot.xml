@@ -7,5 +7,4 @@
     android:contentDescription="@string/game_screenshot_content_description"
     app:shapeAppearance="@style/rounded_shape"
     android:scaleType="centerCrop"
-    android:src="@drawable/cover"
     tools:src="@drawable/cover"/>
