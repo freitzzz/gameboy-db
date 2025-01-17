@@ -19,6 +19,7 @@ data class Game(
     val platforms: List<String>,
     val screenshots: List<Uri>,
     val esrb: ESRB = ESRB.RATING_PENDING,
+    val favorite: Boolean = false,
     val promo: String? = null,
     val trivia: String? = null,
     val rating: Float? = null,

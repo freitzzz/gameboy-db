@@ -9,9 +9,13 @@ import com.github.freitzzz.gameboydb.data.model.Game
 interface GamesRepository {
     suspend fun top(): OperationResult<List<Game>>
     suspend fun controversial(): OperationResult<List<Game>>
+    suspend fun markFavorite(game: Game): OperationResult<Unit>
+    suspend fun unmarkFavorite(game: Game): OperationResult<Unit>
 }
 
 class FakeGamesRepository : GamesRepository {
+    private val favoriteGames = arrayListOf<Game>()
+
     override suspend fun top(): OperationResult<List<Game>> {
         return Right(
             arrayListOf(
@@ -148,5 +152,15 @@ class FakeGamesRepository : GamesRepository {
                 )
             )
         )
+    }
+
+    override suspend fun markFavorite(game: Game): OperationResult<Unit> {
+        favoriteGames.add(game)
+        return Right(Unit)
+    }
+
+    override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
+        favoriteGames.remove(game)
+        return Right(Unit)
     }
 }

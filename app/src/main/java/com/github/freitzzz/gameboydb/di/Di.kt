@@ -8,8 +8,10 @@ import com.github.freitzzz.gameboydb.data.repository.FakeGamesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
 import com.github.freitzzz.gameboydb.data.repository.GamesRepository
 import com.github.freitzzz.gameboydb.domain.DownloadImage
+import com.github.freitzzz.gameboydb.domain.FavoriteGame
 import com.github.freitzzz.gameboydb.domain.GetControversialGames
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
+import com.github.freitzzz.gameboydb.domain.UnfavoriteGame
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -38,4 +40,6 @@ private fun registerDomain(
     store(GetTopRatedGames(get()))
     store(GetControversialGames(get()))
     store(DownloadImage(get()))
+    store(FavoriteGame(get()))
+    store(UnfavoriteGame(get()))
 }
