@@ -17,9 +17,12 @@ class ImageLoaderViewModel : ViewModel() {
         return MutableLiveData<Uri>().apply {
             viewModelScope.launch {
                 onIO {
-                    val result = downloadImage(image.toString())
+                    val url = image.toString()
+                    val result = downloadImage(url)
                     result.each {
-                        postValue(Uri.fromFile(it))
+                        val uri = Uri.fromFile(it)
+                        loadedImages[url] = uri
+                        postValue(uri)
                     }
                 }
             }
@@ -32,9 +35,11 @@ class ImageLoaderViewModel : ViewModel() {
             viewModelScope.launch {
                 onIO {
                     for (i in value.indices) {
-                        val result = downloadImage(value[i].toString())
+                        val url = value[i].toString()
+                        val result = downloadImage(url)
                         result.each {
                             value[i] = Uri.fromFile(it)
+                            loadedImages[url] = value[i]
                             postValue(value)
                         }
                     }
@@ -46,3 +51,18 @@ class ImageLoaderViewModel : ViewModel() {
     fun loaded(vararg uris: Uri) = uris.all { it.scheme == "file" }
     fun loaded(uris: List<Uri>) = uris.all { it.scheme == "file" }
 }
+
+/**
+ * Global cache of downloaded images mapped by their urls.
+ */
+internal val loadedImages = mutableMapOf<String, Uri>()
+
+/**
+ * Check if this image has been loaded already in [loadedImages], and if so uses that instance.
+ */
+fun Uri.cached() = loadedImages[toString()] ?: this
+
+/**
+ * Applies [Uri.cached] to a list of [Uri] instances.
+ */
+fun List<Uri>.cached() = map { it.cached() }
