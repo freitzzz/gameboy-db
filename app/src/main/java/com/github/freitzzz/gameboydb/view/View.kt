@@ -7,6 +7,7 @@ import androidx.annotation.IdRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.github.freitzzz.gameboydb.view.viewmodel.StateViewModelFactory
 
 /**
  * Resolves zero, one or more [View] instances for a set of resource id.
@@ -72,8 +73,12 @@ fun Activity.setText(vararg pair: Pair<Int, String?>) {
 fun List<View>.show() = onEach { it.show() }
 
 /**
- * Resolves the [T] instance that is attached to the current activity.
+ * Resolves the [T] instance that is attached to the current activity. The [data] parameter
+ * can be used to pass data to the ViewModel using [StateViewModelFactory].
  * Calling this method from a [androidx.fragment.app.Fragment] will always create a new [T] instance.
  */
-inline fun <reified T : ViewModel> ViewModelStoreOwner.viewModel() =
-    ViewModelProvider(this)[T::class.java]
+inline fun <reified T : ViewModel> ViewModelStoreOwner.viewModel(data: Any? = null) = when (data) {
+    null -> ViewModelProvider(this)[T::class.java]
+    is ViewModelProvider.Factory -> ViewModelProvider(this, data)[T::class.java]
+    else -> ViewModelProvider(this, StateViewModelFactory(data))[T::class.java]
+}
