@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
  * This list is used in [toBundle] to automatically create a bundle with a value.
  */
 val extraKeys = mapOf<KClass<*>, String>(
-    Game::class to "game-tile"
+    Game::class to "game"
 )
 
 /**

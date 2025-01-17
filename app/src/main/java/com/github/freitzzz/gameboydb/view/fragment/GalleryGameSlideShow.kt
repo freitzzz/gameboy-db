@@ -15,14 +15,14 @@ import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.view.activity.GameDetailsActivity
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.view.navigateTo
-import com.github.freitzzz.gameboydb.view.viewmodel.GameTileViewModel
+import com.github.freitzzz.gameboydb.view.viewmodel.GamesViewModel
 import com.google.android.material.imageview.ShapeableImageView
 
 class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel = ViewModelProvider(requireActivity())[GameTileViewModel::class.java]
+        val viewModel = ViewModelProvider(requireActivity())[GamesViewModel::class.java]
         val recyclerView = view.findViewById<RecyclerView>(
             R.id.fragment_gallery_game_slide_show_recycler_view
         )

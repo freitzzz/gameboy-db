@@ -6,12 +6,12 @@ import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.data.model.ESRB
 import com.github.freitzzz.gameboydb.data.model.Game
 
-interface TilesRepository {
+interface GamesRepository {
     suspend fun top(): OperationResult<List<Game>>
     suspend fun controversial(): OperationResult<List<Game>>
 }
 
-class FakeTilesRepository : TilesRepository {
+class FakeGamesRepository : GamesRepository {
     override suspend fun top(): OperationResult<List<Game>> {
         return Right(
             arrayListOf(

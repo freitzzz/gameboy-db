@@ -8,25 +8,25 @@ import androidx.lifecycle.viewModelScope
 import com.github.freitzzz.gameboydb.core.vault
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.domain.DownloadImage
-import com.github.freitzzz.gameboydb.domain.GetControversialTiles
-import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
+import com.github.freitzzz.gameboydb.domain.GetControversialGames
+import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
 import kotlinx.coroutines.launch
 
-class GameTileViewModel : ViewModel() {
-    private val getTopRatedTiles by lazy { vault().get<GetTopRatedTiles>() }
-    private val getControversialTiles by lazy { vault().get<GetControversialTiles>() }
+class GamesViewModel : ViewModel() {
+    private val getTopRatedGames by lazy { vault().get<GetTopRatedGames>() }
+    private val getControversialGames by lazy { vault().get<GetControversialGames>() }
     private val downloadImage by lazy { vault().get<DownloadImage>() }
 
-    private val topRatedTiles = MutableLiveData<List<Game>>(arrayListOf())
-    private val controversialTiles = MutableLiveData<List<Game>>(arrayListOf())
+    private val topRatedGames = MutableLiveData<List<Game>>(arrayListOf())
+    private val controversialGames = MutableLiveData<List<Game>>(arrayListOf())
 
     fun topRated(): LiveData<List<Game>> {
-        if (topRatedTiles.value?.isNotEmpty() == true) {
-            return topRatedTiles
+        if (topRatedGames.value?.isNotEmpty() == true) {
+            return topRatedGames
         }
 
         viewModelScope.launch {
-            val tiles = getTopRatedTiles()
+            val tiles = getTopRatedGames()
                 .unfold { arrayListOf() }
                 .map {
                     it.copy(cover = downloadImage(it.cover.toString())
@@ -35,20 +35,20 @@ class GameTileViewModel : ViewModel() {
                     )
                 }
 
-            topRatedTiles.value = tiles
+            topRatedGames.value = tiles
 
         }
 
-        return topRatedTiles
+        return topRatedGames
     }
 
     fun controversial(): LiveData<List<Game>> {
-        if (controversialTiles.value?.isNotEmpty() == true) {
-            return controversialTiles
+        if (controversialGames.value?.isNotEmpty() == true) {
+            return controversialGames
         }
 
         viewModelScope.launch {
-            val tiles = getControversialTiles()
+            val tiles = getControversialGames()
                 .unfold { arrayListOf() }
                 .map {
                     it.copy(cover = downloadImage(it.cover.toString())
@@ -57,9 +57,9 @@ class GameTileViewModel : ViewModel() {
                     )
                 }
 
-            controversialTiles.value = tiles
+            controversialGames.value = tiles
         }
 
-        return controversialTiles
+        return controversialGames
     }
 }

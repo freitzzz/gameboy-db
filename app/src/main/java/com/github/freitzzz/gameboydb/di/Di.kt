@@ -4,12 +4,12 @@ import android.content.Context
 import com.github.freitzzz.gameboydb.core.Vault
 import com.github.freitzzz.gameboydb.data.http.SSLBypassNetworkingClient
 import com.github.freitzzz.gameboydb.data.repository.AssetsRepository
-import com.github.freitzzz.gameboydb.data.repository.FakeTilesRepository
+import com.github.freitzzz.gameboydb.data.repository.FakeGamesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
-import com.github.freitzzz.gameboydb.data.repository.TilesRepository
+import com.github.freitzzz.gameboydb.data.repository.GamesRepository
 import com.github.freitzzz.gameboydb.domain.DownloadImage
-import com.github.freitzzz.gameboydb.domain.GetControversialTiles
-import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
+import com.github.freitzzz.gameboydb.domain.GetControversialGames
+import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -22,7 +22,7 @@ private fun registerData(
     vault: Vault,
     context: Context,
 ) = vault.apply {
-    store<TilesRepository>(FakeTilesRepository())
+    store<GamesRepository>(FakeGamesRepository())
     store<AssetsRepository>(
         NetworkingAssetsRepository(
             SSLBypassNetworkingClient(""),
@@ -35,7 +35,7 @@ private fun registerData(
 private fun registerDomain(
     vault: Vault,
 ) = vault.apply {
-    store(GetTopRatedTiles(get()))
-    store(GetControversialTiles(get()))
+    store(GetTopRatedGames(get()))
+    store(GetControversialGames(get()))
     store(DownloadImage(get()))
 }
