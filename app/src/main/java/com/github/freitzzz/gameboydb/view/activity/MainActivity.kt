@@ -50,12 +50,12 @@ class MainActivity : AppCompatActivity() {
 
             if (fragment.id == 0) {
                 add(R.id.fragment_virtual_page, fragment, itemId.toString())
-            } else {
-                virtualPages.onEach {
-                    when (itemId) {
-                        it.key -> show(it.value)
-                        else -> hide(it.value)
-                    }
+            }
+
+            virtualPages.onEach {
+                when (itemId) {
+                    it.key -> show(it.value)
+                    else -> hide(it.value)
                 }
             }
 
