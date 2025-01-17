@@ -10,29 +10,54 @@ import com.github.freitzzz.gameboydb.core.allOf
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.view.adapter.ImagesAdapter
 import com.github.freitzzz.gameboydb.view.displayMetrics
-import com.github.freitzzz.gameboydb.view.drawable
 import com.github.freitzzz.gameboydb.view.drawableRes
 import com.github.freitzzz.gameboydb.view.get
 import com.github.freitzzz.gameboydb.view.landscape
 import com.github.freitzzz.gameboydb.view.setText
 import com.github.freitzzz.gameboydb.view.show
+import com.github.freitzzz.gameboydb.view.showToast
 import com.github.freitzzz.gameboydb.view.view
 import com.github.freitzzz.gameboydb.view.viewModel
 import com.github.freitzzz.gameboydb.view.viewOf
+import com.github.freitzzz.gameboydb.view.viewmodel.GameMarkedFavorite
+import com.github.freitzzz.gameboydb.view.viewmodel.GameUnmarkedFavorite
+import com.github.freitzzz.gameboydb.view.viewmodel.GameViewModel
 import com.github.freitzzz.gameboydb.view.viewmodel.ImageLoaderViewModel
+import com.github.freitzzz.gameboydb.view.viewmodel.StateViewModelFactory
 import com.github.freitzzz.gameboydb.view.viewmodel.cached
 import com.github.freitzzz.gameboydb.view.withRes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-
 class GameDetailsActivity : AppCompatActivity() {
+    private val gameViewModel by lazy {
+        viewModel<GameViewModel>(StateViewModelFactory(intent.get<Game>()!!))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_details)
+        updateViews(gameViewModel.state.value)
 
-        val game = intent.get<Game>()!!
+        val favoriteIconButton = viewOf<ImageView>(R.id.navigable_top_bar_primary_action)
+        gameViewModel.liveState.observe(this) {
+            when (it) {
+                is GameMarkedFavorite -> favoriteIconButton.let {
+                    favoriteIconButton.setImageResource(R.drawable.bookmark_simple_fill_white)
+                    showToast(R.string.game_marked_favorite)
+                }
 
+                is GameUnmarkedFavorite -> favoriteIconButton.let {
+                    favoriteIconButton.setImageResource(R.drawable.bookmark_simple_white)
+                    showToast(R.string.game_unmarked_favorite)
+                }
+
+                else -> Unit
+            }
+        }
+    }
+
+    private fun updateViews(game: Game) {
         setText(
             R.id.game_details_sheet_title to game.title,
             R.id.game_details_sheet_description to game.description,
@@ -59,10 +84,17 @@ class GameDetailsActivity : AppCompatActivity() {
             )
         ).show()
 
-        viewOf<ImageView>(R.id.game_details_sheet_esrb_rating).setImageDrawable(drawable(game.esrb.drawableRes()))
+        viewOf<ImageView>(R.id.game_details_sheet_esrb_rating).setImageResource(game.esrb.drawableRes())
         viewOf<ImageView>(R.id.game_details_cover).setImageURI(game.cover)
         viewOf<CircularProgressIndicator>(R.id.game_rating_progress_indicator).progress =
             game.rating?.times(10)?.toInt() ?: 0
+
+        viewOf<ImageView>(R.id.navigable_top_bar_primary_action).apply {
+            setImageResource(R.drawable.bookmark_simple_white)
+            setOnClickListener {
+                gameViewModel.mark()
+            }
+        }
 
         val sheet = BottomSheetBehavior.from(view(R.id.game_details_sheet))
         sheet.maxHeight = (displayMetrics().heightPixels * if (landscape()) 0.8 else 0.9).toInt()

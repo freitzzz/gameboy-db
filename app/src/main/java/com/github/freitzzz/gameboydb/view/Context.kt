@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.util.DisplayMetrics
+import android.widget.Toast
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
 /**
@@ -28,3 +31,8 @@ fun Context.displayMetrics() = ContextCompat.getDisplayOrDefault(this).let {
         DisplayMetrics().also { dm -> it.getMetrics(dm) }
     }
 }
+
+/**
+ * Displays a toast for a short duration.
+ */
+fun Context.showToast(@StringRes id: Int) = Toast.makeText(this, id, Toast.LENGTH_SHORT).show()
