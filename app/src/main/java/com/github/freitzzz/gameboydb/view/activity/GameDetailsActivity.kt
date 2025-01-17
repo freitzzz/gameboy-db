@@ -1,18 +1,14 @@
 package com.github.freitzzz.gameboydb.view.activity
 
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.core.allOf
 import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.view.adapter.ImagesAdapter
 import com.github.freitzzz.gameboydb.view.displayMetrics
 import com.github.freitzzz.gameboydb.view.drawable
 import com.github.freitzzz.gameboydb.view.drawableRes
@@ -23,10 +19,9 @@ import com.github.freitzzz.gameboydb.view.show
 import com.github.freitzzz.gameboydb.view.view
 import com.github.freitzzz.gameboydb.view.viewModel
 import com.github.freitzzz.gameboydb.view.viewOf
-import com.github.freitzzz.gameboydb.view.withRes
 import com.github.freitzzz.gameboydb.view.viewmodel.ImageLoaderViewModel
+import com.github.freitzzz.gameboydb.view.withRes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 
@@ -75,8 +70,10 @@ class GameDetailsActivity : AppCompatActivity() {
             R.id.game_details_sheet_screenshots
         )
 
-        val adapter = GameScreenshotsAdapter(
-            recyclerView.resources.getDimension(R.dimen.large_gap).toInt()
+        val adapter = ImagesAdapter(
+            layoutId = R.layout.game_details_screenshot,
+            endMargin = recyclerView.resources.getDimension(R.dimen.large_gap).toInt(),
+            data = game.screenshots.toMutableList()
         )
 
         recyclerView.adapter = adapter
@@ -90,57 +87,6 @@ class GameDetailsActivity : AppCompatActivity() {
             viewModel.invoke(game.screenshots).observe(this) {
                 adapter.updateAll(it)
             }
-        }
-    }
-}
-
-class GameScreenshotsAdapter(
-    private val endMargin: Int,
-) : RecyclerView.Adapter<GameScreenshotViewHolder>() {
-    private val data = arrayListOf<Uri>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameScreenshotViewHolder {
-        val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.game_details_screenshot, parent, false)
-
-        itemView.layoutParams = LinearLayout.LayoutParams(itemView.layoutParams).apply {
-            marginEnd = endMargin
-        }
-
-        return GameScreenshotViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: GameScreenshotViewHolder, position: Int) {
-        holder.bind(data[position])
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    fun postAll(screenshots: List<Uri>) {
-        data.addAll(screenshots)
-        notifyItemChanged(data.size - 1)
-    }
-
-    fun updateAll(screenshots: List<Uri>) {
-        for (i in screenshots.indices) {
-            if (data[i] != screenshots[i]) {
-                data[i] = screenshots[i]
-                notifyItemChanged(i)
-            }
-        }
-    }
-}
-
-class GameScreenshotViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(screenshot: Uri?) {
-        if (screenshot == null) {
-            return
-        }
-
-        if (screenshot.scheme == "file") {
-            (itemView as ShapeableImageView).setImageURI(screenshot)
         }
     }
 }
