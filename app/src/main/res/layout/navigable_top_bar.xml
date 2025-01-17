@@ -5,15 +5,13 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/navigable_top_bar_back_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/normal_gap"
+        style="@style/icon_button"
         android:contentDescription="@string/back_icon_content_description"
         android:src="@drawable/arrow_left_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
 
     <TextView
@@ -40,25 +38,22 @@
         android:layout_marginTop="@dimen/small_gap"
         tools:text="Subtitle"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/navigable_top_bar_secondary_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/normal_gap"
+        style="@style/icon_button"
         android:contentDescription="@string/secondary_action_icon_content_description"
         app:layout_constraintEnd_toStartOf="@id/navigable_top_bar_primary_action"
-        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
-        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_back_action"
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_back_action"
         tools:src="@drawable/play_circle_white" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/navigable_top_bar_primary_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/icon_button"
         android:contentDescription="@string/primary_action_icon_content_description"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
-        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_back_action"
+        app:layout_constraintTop_toTopOf="@id/navigable_top_bar_back_action"
         tools:src="@drawable/bookmark_simple_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
