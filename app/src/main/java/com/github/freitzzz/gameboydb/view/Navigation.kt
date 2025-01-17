@@ -1,4 +1,4 @@
-package com.github.freitzzz.gameboydb.navigation
+package com.github.freitzzz.gameboydb.view
 
 import android.app.Activity
 import android.content.Context

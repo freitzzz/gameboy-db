@@ -16,10 +16,10 @@
         android:theme="@style/Theme.GameboyDB"
         tools:targetApi="31">
         <activity
-            android:name=".activity.GameDetailsActivity"
+            android:name=".view.activity.GameDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

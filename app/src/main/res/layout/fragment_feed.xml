@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.FeedFragment">
+    tools:context=".view.fragment.FeedFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_gallery_top_rated_game_slide_show"
-        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:name="com.github.freitzzz.gameboydb.view.fragment.GalleryGameSlideShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_gap"
@@ -31,7 +31,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_gallery_controversial_game_slide_show"
-        android:name="com.github.freitzzz.gameboydb.fragment.GalleryGameSlideShow"
+        android:name="com.github.freitzzz.gameboydb.view.fragment.GalleryGameSlideShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_gap"

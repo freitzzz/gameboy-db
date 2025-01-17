@@ -12,6 +12,7 @@ import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetTopRatedTiles
 import com.github.freitzzz.gameboydb.swallow
+import com.github.freitzzz.gameboydb.view.viewmodel.GameTileViewModel
 import io.mockk.awaits
 import io.mockk.coEvery
 import io.mockk.coVerify

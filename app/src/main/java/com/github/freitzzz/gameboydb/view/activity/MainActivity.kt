@@ -1,10 +1,10 @@
-package com.github.freitzzz.gameboydb.activity
+package com.github.freitzzz.gameboydb.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.freitzzz.gameboydb.R
-import com.github.freitzzz.gameboydb.SettingsFragment
-import com.github.freitzzz.gameboydb.fragment.FeedFragment
+import com.github.freitzzz.gameboydb.view.fragment.SettingsFragment
+import com.github.freitzzz.gameboydb.view.fragment.FeedFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

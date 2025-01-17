@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/normal_gap"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    tools:context=".view.activity.MainActivity">
 
     <include
         layout="@layout/top_bar"
@@ -22,7 +22,7 @@
             android:id="@+id/fragment_virtual_page"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:name="com.github.freitzzz.gameboydb.fragment.FeedFragment"
+            android:name="com.github.freitzzz.gameboydb.view.fragment.FeedFragment"
             tools:layout="@layout/fragment_feed" />
     </ScrollView>
 

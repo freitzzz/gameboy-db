@@ -1,4 +1,4 @@
-package com.github.freitzzz.gameboydb.fragment
+package com.github.freitzzz.gameboydb.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
-import com.github.freitzzz.gameboydb.activity.GameDetailsActivity
+import com.github.freitzzz.gameboydb.view.activity.GameDetailsActivity
 import com.github.freitzzz.gameboydb.data.model.Game
-import com.github.freitzzz.gameboydb.navigation.navigateTo
-import com.github.freitzzz.gameboydb.viewmodel.GameTileViewModel
+import com.github.freitzzz.gameboydb.view.navigateTo
+import com.github.freitzzz.gameboydb.view.viewmodel.GameTileViewModel
 import com.google.android.material.imageview.ShapeableImageView
 
 class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show) {

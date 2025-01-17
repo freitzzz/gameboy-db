@@ -1,9 +1,9 @@
-package com.github.freitzzz.gameboydb.navigation
+package com.github.freitzzz.gameboydb.view
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.github.freitzzz.gameboydb.activity.MainActivity
+import com.github.freitzzz.gameboydb.view.activity.MainActivity
 import com.github.freitzzz.gameboydb.data.model.Game
 import io.mockk.every
 import io.mockk.just
