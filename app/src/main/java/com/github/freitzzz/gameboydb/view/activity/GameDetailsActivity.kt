@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.core.allOf
 import com.github.freitzzz.gameboydb.data.model.Game
-import com.github.freitzzz.gameboydb.view.adapter.ImagesAdapter
+import com.github.freitzzz.gameboydb.view.adapter.RecyclerViewAdapter
 import com.github.freitzzz.gameboydb.view.displayMetrics
 import com.github.freitzzz.gameboydb.view.drawableRes
 import com.github.freitzzz.gameboydb.view.get
@@ -106,10 +106,17 @@ class GameDetailsActivity : AppCompatActivity() {
             R.id.game_details_sheet_screenshots
         )
 
-        val adapter = ImagesAdapter(
-            layoutId = R.layout.game_details_screenshot,
-            endMargin = recyclerView.resources.getDimension(R.dimen.large_gap).toInt(),
-            data = game.screenshots.cached().toMutableList()
+        val adapter = RecyclerViewAdapter(
+            itemLayoutId = R.layout.game_details_screenshot,
+            data = game.screenshots.cached().toMutableList(),
+            onLayoutParams = {
+                marginEnd = recyclerView.resources.getDimension(R.dimen.large_gap).toInt()
+            },
+            onBind = {
+                if (it.scheme == "file") {
+                    (this as ImageView).setImageURI(it)
+                }
+            }
         )
 
         recyclerView.adapter = adapter

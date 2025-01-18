@@ -68,6 +68,13 @@ fun Activity.setText(vararg pair: Pair<Int, String?>) {
 }
 
 /**
+ * Calls [TextView.setText] for each pair of (ResourceId, String).
+ */
+fun View.setText(vararg pair: Pair<Int, String?>) {
+    pair.onEach { viewOf<TextView>(it.first).text = it.second }
+}
+
+/**
  * Calls [View.show] for each [View] instance.
  */
 fun List<View>.show() = onEach { it.show() }

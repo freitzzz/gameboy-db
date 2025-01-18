@@ -12,10 +12,10 @@
         android:layout_height="@dimen/favorite_cover"
         android:contentDescription="@string/game_cover_content_description"
         android:scaleType="centerCrop"
-        android:src="@drawable/cover"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/rounded_shape" />
+        app:shapeAppearance="@style/rounded_shape"
+        tools:src="@drawable/cover" />
 
     <TextView
         android:id="@+id/favorite_game_name"
