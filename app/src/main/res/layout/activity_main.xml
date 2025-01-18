@@ -20,7 +20,7 @@
         android:overScrollMode="never">
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_virtual_page"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.github.freitzzz.gameboydb.view.fragment.FeedFragment"
             tools:layout="@layout/fragment_feed" />

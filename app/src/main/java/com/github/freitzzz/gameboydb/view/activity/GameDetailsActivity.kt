@@ -90,7 +90,10 @@ class GameDetailsActivity : AppCompatActivity() {
             game.rating?.times(10)?.toInt() ?: 0
 
         viewOf<ImageView>(R.id.navigable_top_bar_primary_action).apply {
-            setImageResource(R.drawable.bookmark_simple_white)
+            val res = if (game.favorite) R.drawable.bookmark_simple_fill_white
+            else R.drawable.bookmark_simple_white
+
+            setImageResource(res)
             setOnClickListener {
                 gameViewModel.mark()
             }

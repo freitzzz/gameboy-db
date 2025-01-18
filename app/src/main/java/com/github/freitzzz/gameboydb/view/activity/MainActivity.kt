@@ -3,6 +3,7 @@ package com.github.freitzzz.gameboydb.view.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.github.freitzzz.gameboydb.R
+import com.github.freitzzz.gameboydb.view.fragment.FavoritesFragment
 import com.github.freitzzz.gameboydb.view.fragment.SettingsFragment
 import com.github.freitzzz.gameboydb.view.fragment.FeedFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     private val virtualPages = mutableMapOf(
         R.id.menu_item_feed_page to FeedFragment(),
+        R.id.menu_item_favorites_page to FavoritesFragment(),
         R.id.menu_item_settings_page to SettingsFragment()
     )
 

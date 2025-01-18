@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/favorite_game_cover"
+        android:layout_width="@dimen/favorite_cover"
+        android:layout_height="@dimen/favorite_cover"
+        android:contentDescription="@string/game_cover_content_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/rounded_shape" />
+
+    <TextView
+        android:id="@+id/favorite_game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/large_gap"
+        android:layout_marginTop="@dimen/normal_gap"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/favorite_game_cover"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pokemon Red" />
+
+    <TextView
+        android:id="@+id/favorite_game_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintStart_toStartOf="@id/favorite_game_name"
+        app:layout_constraintTop_toBottomOf="@id/favorite_game_name"
+        tools:text="Fantasy, RPG" />
+
+    <TextView
+        android:id="@+id/favorite_game_platforms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size"
+        app:layout_constraintStart_toStartOf="@id/favorite_game_genre"
+        app:layout_constraintTop_toBottomOf="@id/favorite_game_genre"
+        tools:text="Game boy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

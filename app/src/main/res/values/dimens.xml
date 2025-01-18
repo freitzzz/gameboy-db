@@ -15,7 +15,8 @@
     <dimen name="icon_button_size">48dp</dimen>
 
     <dimen name="text_margin">16dp</dimen>
-    
+
     <dimen name="gallery_cover">256dp</dimen>
+    <dimen name="favorite_cover">96dp</dimen>
     <dimen name="game_details_screenshot">96dp</dimen>
 </resources>
