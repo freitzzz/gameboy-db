@@ -8,7 +8,7 @@ class UnfavoriteGame(
     private val repository: GamesRepository,
     private val state: GameUpdates,
 ) {
-    suspend operator fun invoke(game: Game) = repository.unmarkFavorite(game).each {
+    suspend operator fun invoke(game: Game) = repository.unmarkFavorite(game).map {
         game.copy(favorite = false).also {
             state.tryEmit(it)
         }

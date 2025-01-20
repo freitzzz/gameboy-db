@@ -6,35 +6,35 @@ sealed class Either<L, R> {
     fun isLeft() = this is Left
     fun isRight() = this is Right
 
-    fun <B> fold(ifLeft: (l: L) -> B, ifRight: (r: R) -> B): B {
+    inline fun <B> fold(ifLeft: (l: L) -> B, ifRight: (r: R) -> B): B {
         return when (this) {
             is Left -> ifLeft(this.value)
             is Right -> ifRight(this.value)
         }
     }
 
-    fun unfold(ifLeft: () -> R): R {
+    inline fun unfold(ifLeft: () -> R): R {
         return when (this) {
             is Left -> ifLeft()
             is Right -> this.value
         }
     }
 
-    fun <R2> map(ifRight: (r: R) -> R2): Either<L, R2> {
+    inline fun <R2> map(ifRight: (r: R) -> R2): Either<L, R2> {
         return when (this) {
             is Left -> Left(this.value)
             is Right -> Right(ifRight(this.value))
         }
     }
 
-    fun <L2> orElse(ifLeft: (l: L) -> L2): Either<L2, R> {
+    inline fun <L2> orElse(ifLeft: (l: L) -> L2): Either<L2, R> {
         return when (this) {
             is Left -> Left(ifLeft(this.value))
             is Right -> Right(this.value)
         }
     }
 
-    fun each(block: (r: R) -> Unit) {
+    inline fun each(block: (r: R) -> Unit) {
         when (this) {
             is Right -> block(this.value)
             is Left -> return
