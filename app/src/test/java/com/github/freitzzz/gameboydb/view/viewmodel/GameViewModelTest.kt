@@ -9,10 +9,10 @@ import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.core.Vault
 import com.github.freitzzz.gameboydb.core.vault
 import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.data.model.GamePreview
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
 import com.github.freitzzz.gameboydb.swallow
-import com.github.freitzzz.gameboydb.view.viewmodel.GamesViewModel
 import io.mockk.awaits
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -64,12 +64,12 @@ class GameViewModelTest {
     fun `if getTopRatedTiles call returns Right, then downloadImage is called for every tile cover`() = runTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
-        val tile = mockk<Game>()
+        val tile = mockk<GamePreview>()
         val tiles = arrayListOf(tile)
         val viewModel = GamesViewModel()
 
         every { coverUri.toString() } returns url
-        every { tile.cover } returns coverUri
+        every { tile.thumbnail } returns coverUri
         coEvery { getTopRatedGames() } returns Right(tiles)
         coEvery { downloadImage(any()) } just awaits
 
@@ -81,19 +81,19 @@ class GameViewModelTest {
     fun `the original tile cover is used if downloadImage fails`() = runTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
-        val tile = mockk<Game>()
+        val tile = mockk<GamePreview>()
         val tiles = arrayListOf(tile)
         val viewModel = GamesViewModel()
         val error = DownloadError("404")
 
         every { coverUri.toString() } returns url
-        every { tile.copy(cover = any()) } returns tile
-        every { tile.cover } returns coverUri
+        every { tile.copy(thumbnail = any()) } returns tile
+        every { tile.thumbnail } returns coverUri
         coEvery { getTopRatedGames() } returns Right(tiles)
         coEvery { downloadImage(any()) } returns Left(error)
 
         viewModel.topRated()
-        verify(exactly = tiles.size) { swallow(tile.copy(cover = coverUri)) }
+        verify(exactly = tiles.size) { swallow(tile.copy(thumbnail = coverUri)) }
     }
 
     @Test
@@ -101,20 +101,20 @@ class GameViewModelTest {
         val url = "https://example.com/foo.bar"
         val coverUri = mockk<Uri>()
         val downloadedCoverUri = mockk<Uri>()
-        val tile = mockk<Game>()
+        val tile = mockk<GamePreview>()
         val tiles = arrayListOf(tile)
         val viewModel = GamesViewModel()
         val file = mockk<File>()
 
         mockkStatic(Uri::fromFile)
         every { coverUri.toString() } returns url
-        every { tile.copy(cover = any()) } returns tile
-        every { tile.cover } returns coverUri
+        every { tile.copy(thumbnail = any()) } returns tile
+        every { tile.thumbnail } returns coverUri
         every { Uri.fromFile(file) }  returns downloadedCoverUri
         coEvery { getTopRatedGames() } returns Right(tiles)
         coEvery { downloadImage(any()) } returns Right(file)
 
         viewModel.topRated()
-        verify(exactly = tiles.size) {  swallow(tile.copy(cover = downloadedCoverUri)) }
+        verify(exactly = tiles.size) {  swallow(tile.copy(thumbnail = downloadedCoverUri)) }
     }
 }

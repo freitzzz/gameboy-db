@@ -21,7 +21,7 @@ data class Game(
     val trivia: String? = null,
     val rating: Float? = null,
     val critics: Float? = null,
-    val cover: Uri? = null,
+    val thumbnail: Uri? = null,
     val gameplay: Uri? = null
 ) : Parcelable
 
@@ -37,6 +37,6 @@ fun Game.preview() = GamePreview(
     id = this.id,
     title = this.title,
     genres = this.genres,
-    thumbnail = this.cover,
+    thumbnail = this.thumbnail,
     platforms = this.platforms,
 )

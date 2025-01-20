@@ -105,9 +105,9 @@ class GamesViewModel : ViewModel() {
         viewModelScope.launch {
             onIO {
                 loadGame(preview.id).map {
-                    it.copy(cover = downloadImage(it.cover.toString())
+                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
                         .map(Uri::fromFile)
-                        .unfold { it.cover }
+                        .unfold { it.thumbnail }
                     )
                 }.each(onLoad)
             }
