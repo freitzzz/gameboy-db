@@ -32,16 +32,29 @@ class RecyclerViewAdapter<T>(
         return data.size
     }
 
-    fun postAll(data: List<T>) {
+    fun addAll(data: List<T>) {
+        val startIdx = this.data.size
+
         this.data.addAll(data)
-        notifyItemChanged(data.size - 1)
+        notifyItemRangeInserted(startIdx, data.size)
     }
 
-    fun updateAll(data: List<T>) {
+    fun replaceAll(data: List<T>) {
+        val beforeSize = this.data.size
+        this.data.clear()
+        notifyItemRangeRemoved(0, beforeSize)
+        addAll(data)
+    }
+
+    fun remove(data: List<T>) {
         for (i in data.indices) {
-            if (this.data[i] != data[i]) {
-                this.data[i] = data[i]
-                notifyItemChanged(i)
+            for (j in this.data.indices) {
+                if (this.data[j] == data[i]) {
+                    this.data.removeAt(j)
+                    notifyItemRemoved(j)
+
+                    break
+                }
             }
         }
     }
