@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
-import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.data.model.GamePreview
 import com.github.freitzzz.gameboydb.view.activity.GameDetailsActivity
 import com.github.freitzzz.gameboydb.view.adapter.RecyclerViewAdapter
 import com.github.freitzzz.gameboydb.view.navigateTo
@@ -15,6 +15,7 @@ import com.github.freitzzz.gameboydb.view.setText
 import com.github.freitzzz.gameboydb.view.viewModel
 import com.github.freitzzz.gameboydb.view.viewOf
 import com.github.freitzzz.gameboydb.view.viewmodel.GamesViewModel
+import com.github.freitzzz.gameboydb.view.viewmodel.ValueChangeEvent
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             R.id.fragment_favorites_recycler_view
         )
 
-        val adapter = RecyclerViewAdapter<Game>(
+        val adapter = RecyclerViewAdapter<GamePreview>(
             itemLayoutId = R.layout.favorite_game_tile,
             onBind = { game ->
                 setText(
@@ -34,9 +35,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                     R.id.favorite_game_platforms to game.platforms.joinToString("/ "),
                 )
 
-                viewOf<ImageView>(R.id.favorite_game_cover).setImageURI(game.cover)
+                viewOf<ImageView>(R.id.favorite_game_cover).setImageURI(game.thumbnail)
                 setOnClickListener {
-                    context.navigateTo<GameDetailsActivity>(game)
+                    viewModel.load(game) {
+                        context.navigateTo<GameDetailsActivity>(it)
+                    }
                 }
             },
             onLayoutParams = {
@@ -51,7 +54,14 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         val data = viewModel.favorites()
         data.observe(viewLifecycleOwner) {
-            adapter.postAll(it)
+            adapter.addAll(it)
+        }
+
+        data.observe {
+            when (this) {
+                ValueChangeEvent.INSERT -> adapter.addAll(it)
+                ValueChangeEvent.DELETE -> adapter.remove(it)
+            }
         }
     }
 }

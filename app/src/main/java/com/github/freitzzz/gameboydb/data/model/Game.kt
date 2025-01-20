@@ -4,9 +4,6 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-/**
- * Complete schema of game metadata.
- */
 @Parcelize
 data class Game(
     val id: String,
@@ -27,3 +24,19 @@ data class Game(
     val cover: Uri? = null,
     val gameplay: Uri? = null
 ) : Parcelable
+
+data class GamePreview(
+    val id: String,
+    val title: String,
+    val genres: List<String>,
+    val platforms: List<String>,
+    val thumbnail: Uri? = null,
+)
+
+fun Game.preview() = GamePreview(
+    id = this.id,
+    title = this.title,
+    genres = this.genres,
+    thumbnail = this.cover,
+    platforms = this.platforms,
+)

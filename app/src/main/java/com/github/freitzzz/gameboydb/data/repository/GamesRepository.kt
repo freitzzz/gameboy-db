@@ -5,17 +5,20 @@ import com.github.freitzzz.gameboydb.core.OperationResult
 import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.data.model.ESRB
 import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.data.model.GamePreview
+import com.github.freitzzz.gameboydb.data.model.preview
 
 interface GamesRepository {
-    suspend fun top(): OperationResult<List<Game>>
-    suspend fun controversial(): OperationResult<List<Game>>
-    suspend fun favorite(): OperationResult<List<Game>>
+    suspend fun top(): OperationResult<List<GamePreview>>
+    suspend fun controversial(): OperationResult<List<GamePreview>>
+    suspend fun favorite(): OperationResult<List<GamePreview>>
+    suspend fun find(id: String): OperationResult<Game>
     suspend fun markFavorite(game: Game): OperationResult<Unit>
     suspend fun unmarkFavorite(game: Game): OperationResult<Unit>
 }
 
 class FakeGamesRepository : GamesRepository {
-    private val topGames = arrayListOf(
+    private val games = arrayListOf(
         Game(
             id = "game-id-1",
             title = "Pokemon Red",
@@ -95,10 +98,7 @@ class FakeGamesRepository : GamesRepository {
             genres = arrayListOf(
                 "Platformer"
             ),
-        )
-    )
-
-    private val controversialGames = arrayListOf(
+        ),
         Game(
             id = "game-id-4",
             title = "Men in Black: The Series",
@@ -147,30 +147,36 @@ class FakeGamesRepository : GamesRepository {
         )
     )
 
-    private val favoriteGames = arrayListOf(
-        *topGames.toTypedArray(),
-        *controversialGames.toTypedArray()
-    ).filter { it.favorite }.toMutableList()
-
-    override suspend fun top(): OperationResult<List<Game>> {
-        return Right(topGames)
+    override suspend fun top(): OperationResult<List<GamePreview>> {
+        return Right(games.take(3).map(Game::preview))
     }
 
-    override suspend fun controversial(): OperationResult<List<Game>> {
-        return Right(controversialGames)
+    override suspend fun controversial(): OperationResult<List<GamePreview>> {
+        return Right(
+            games.reversed().take(3).map(Game::preview)
+        )
     }
 
-    override suspend fun favorite(): OperationResult<List<Game>> {
-        return Right(favoriteGames)
+    override suspend fun favorite(): OperationResult<List<GamePreview>> {
+        return Right(
+            games.filter { it.favorite }.map(Game::preview)
+        )
+    }
+
+    override suspend fun find(id: String): OperationResult<Game> {
+        val game = games.first { it.id == id }
+        return Right(game)
     }
 
     override suspend fun markFavorite(game: Game): OperationResult<Unit> {
-        favoriteGames.add(game)
+        val idx = games.indexOfFirst { it.id  == game.id }
+        games[idx] = game.copy(favorite = true)
         return Right(Unit)
     }
 
     override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
-        favoriteGames.remove(game)
+        val idx = games.indexOfFirst { it.id  == game.id }
+        games[idx] = game.copy(favorite = false)
         return Right(Unit)
     }
 }

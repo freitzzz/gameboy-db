@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
-import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.data.model.GamePreview
 import com.github.freitzzz.gameboydb.view.activity.GameDetailsActivity
 import com.github.freitzzz.gameboydb.view.adapter.RecyclerViewAdapter
 import com.github.freitzzz.gameboydb.view.navigateTo
@@ -26,18 +26,19 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
             R.id.fragment_gallery_game_slide_show_recycler_view
         )
 
-        val adapter = RecyclerViewAdapter<Game>(
+        val adapter = RecyclerViewAdapter<GamePreview>(
             itemLayoutId = R.layout.gallery_game_tile,
             onBind = { game ->
-                println(this)
                 setText(
                     R.id.gallery_game_tile_name to game.title,
                     R.id.gallery_game_tile_genre to game.genres.joinToString(", "),
                 )
 
-                viewOf<ImageView>(R.id.gallery_game_tile_cover).setImageURI(game.cover)
+                viewOf<ImageView>(R.id.gallery_game_tile_cover).setImageURI(game.thumbnail)
                 setOnClickListener {
-                    context.navigateTo<GameDetailsActivity>(game)
+                    viewModel.load(game) {
+                        context.navigateTo<GameDetailsActivity>(it)
+                    }
                 }
             },
             onLayoutParams = {
@@ -62,7 +63,7 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
         }
 
         data?.observe(viewLifecycleOwner) {
-            adapter.postAll(it)
+            adapter.addAll(it)
         }
     }
 }

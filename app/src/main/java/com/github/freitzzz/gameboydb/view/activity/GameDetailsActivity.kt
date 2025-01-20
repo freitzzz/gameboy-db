@@ -127,7 +127,7 @@ class GameDetailsActivity : AppCompatActivity() {
         val viewModel = this.viewModel<ImageLoaderViewModel>()
         if (!viewModel.loaded(game.screenshots)) {
             viewModel.invoke(game.screenshots).observe(this) {
-                adapter.updateAll(it)
+                adapter.replaceAll(it)
             }
         }
     }

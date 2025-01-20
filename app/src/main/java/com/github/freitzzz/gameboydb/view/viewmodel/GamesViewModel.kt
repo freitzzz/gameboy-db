@@ -5,25 +5,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.github.freitzzz.gameboydb.core.onIO
 import com.github.freitzzz.gameboydb.core.vault
 import com.github.freitzzz.gameboydb.data.model.Game
+import com.github.freitzzz.gameboydb.data.model.GamePreview
+import com.github.freitzzz.gameboydb.data.model.preview
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetControversialGames
 import com.github.freitzzz.gameboydb.domain.GetFavoriteGames
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
+import com.github.freitzzz.gameboydb.domain.LoadGame
+import com.github.freitzzz.gameboydb.domain.state.GameUpdates
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 
+// todo: try to to infer query (top rated/controversial/favorites) to prevent view model from becoming a "god viewmodel"
 class GamesViewModel : ViewModel() {
     private val getTopRatedGames by lazy { vault().get<GetTopRatedGames>() }
     private val getControversialGames by lazy { vault().get<GetControversialGames>() }
     private val getFavoriteGames by lazy { vault().get<GetFavoriteGames>() }
+    private val loadGame by lazy { vault().get<LoadGame>() }
     private val downloadImage by lazy { vault().get<DownloadImage>() }
+    private val gameUpdates by lazy { vault().get<GameUpdates>() }
 
-    private val topRatedGames by lazy { MutableLiveData<List<Game>>(arrayListOf()) }
-    private val controversialGames by lazy { MutableLiveData<List<Game>>(arrayListOf()) }
-    private val favoriteGames by lazy { MutableLiveData<List<Game>>(arrayListOf()) }
+    private val topRatedGames by lazy { MutableLiveData(listOf<GamePreview>()) }
+    private val controversialGames by lazy { MutableLiveData(listOf<GamePreview>()) }
+    private val favoriteGames by lazy { LiveDataValueNotifier(listOf<GamePreview>()) }
 
-    fun topRated(): LiveData<List<Game>> {
+    fun topRated(): LiveData<List<GamePreview>> {
         if (topRatedGames.value?.isNotEmpty() == true) {
             return topRatedGames
         }
@@ -32,9 +43,9 @@ class GamesViewModel : ViewModel() {
             val tiles = getTopRatedGames()
                 .unfold { arrayListOf() }
                 .map {
-                    it.copy(cover = downloadImage(it.cover.toString())
+                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
                         .map(Uri::fromFile)
-                        .unfold { it.cover }
+                        .unfold { it.thumbnail }
                     )
                 }
 
@@ -45,7 +56,7 @@ class GamesViewModel : ViewModel() {
         return topRatedGames
     }
 
-    fun controversial(): LiveData<List<Game>> {
+    fun controversial(): LiveData<List<GamePreview>> {
         if (controversialGames.value?.isNotEmpty() == true) {
             return controversialGames
         }
@@ -54,9 +65,9 @@ class GamesViewModel : ViewModel() {
             val tiles = getControversialGames()
                 .unfold { arrayListOf() }
                 .map {
-                    it.copy(cover = downloadImage(it.cover.toString())
+                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
                         .map(Uri::fromFile)
-                        .unfold { it.cover }
+                        .unfold { it.thumbnail }
                     )
                 }
 
@@ -66,24 +77,45 @@ class GamesViewModel : ViewModel() {
         return controversialGames
     }
 
-    fun favorites(): LiveData<List<Game>> {
-        if (favoriteGames.value?.isNotEmpty() == true) {
-            return favoriteGames
-        }
-
+    fun favorites(): LiveDataValueNotifier<List<GamePreview>> {
         viewModelScope.launch {
             val tiles = getFavoriteGames()
                 .unfold { arrayListOf() }
                 .map {
+                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
+                        .map(Uri::fromFile)
+                        .unfold { it.thumbnail }
+                    )
+                }
+
+            favoriteGames.postValue(tiles)
+            gameUpdates.onEach {
+                if (it.favorite) {
+                    favoriteGames.update(arrayListOf(it.preview()), ValueChangeEvent.INSERT)
+                } else {
+                    favoriteGames.update(arrayListOf(it.preview()), ValueChangeEvent.DELETE)
+                }
+            }.shareIn(this, SharingStarted.Eagerly)
+        }
+
+        return favoriteGames
+    }
+
+    fun load(preview: GamePreview, onLoad: (Game) -> Unit) {
+        viewModelScope.launch {
+            onIO {
+                loadGame(preview.id).map {
                     it.copy(cover = downloadImage(it.cover.toString())
                         .map(Uri::fromFile)
                         .unfold { it.cover }
                     )
-                }
-
-            favoriteGames.value = tiles
+                }.each(onLoad)
+            }
         }
+    }
 
-        return favoriteGames
+    override fun onCleared() {
+        super.onCleared()
+        favoriteGames.clear()
     }
 }
