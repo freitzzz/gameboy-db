@@ -13,6 +13,7 @@ import com.github.freitzzz.gameboydb.view.displayMetrics
 import com.github.freitzzz.gameboydb.view.drawableRes
 import com.github.freitzzz.gameboydb.view.get
 import com.github.freitzzz.gameboydb.view.landscape
+import com.github.freitzzz.gameboydb.view.popBack
 import com.github.freitzzz.gameboydb.view.setText
 import com.github.freitzzz.gameboydb.view.show
 import com.github.freitzzz.gameboydb.view.showToast
@@ -39,16 +40,16 @@ class GameDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game_details)
         updateViews(gameViewModel.state.value)
 
-        val favoriteIconButton = viewOf<ImageView>(R.id.navigable_top_bar_primary_action)
+        val primaryAction = viewOf<ImageView>(R.id.navigable_top_bar_primary_action)
         gameViewModel.liveState.observe(this) {
             when (it) {
-                is GameMarkedFavorite -> favoriteIconButton.let {
-                    favoriteIconButton.setImageResource(R.drawable.bookmark_simple_fill_white)
+                is GameMarkedFavorite -> primaryAction.let {
+                    primaryAction.setImageResource(R.drawable.bookmark_simple_fill_white)
                     showToast(R.string.game_marked_favorite)
                 }
 
-                is GameUnmarkedFavorite -> favoriteIconButton.let {
-                    favoriteIconButton.setImageResource(R.drawable.bookmark_simple_white)
+                is GameUnmarkedFavorite -> primaryAction.let {
+                    primaryAction.setImageResource(R.drawable.bookmark_simple_white)
                     showToast(R.string.game_unmarked_favorite)
                 }
 
@@ -97,6 +98,10 @@ class GameDetailsActivity : AppCompatActivity() {
             setOnClickListener {
                 gameViewModel.mark()
             }
+        }
+
+        view(R.id.navigable_top_bar_back_action).setOnClickListener {
+            popBack()
         }
 
         val sheet = BottomSheetBehavior.from(view(R.id.game_details_sheet))

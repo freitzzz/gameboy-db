@@ -35,6 +35,11 @@ inline fun <reified A : Activity> Context.navigateTo(data: Any? = null) {
 }
 
 /**
+ * Wrapper around [Activity.finish] for popping the current activity from the top of the backstack.
+ */
+fun Activity.popBack() = finish()
+
+/**
  * Retrieves data passed to an activity using the [Intent] that was passed on [Context.startActivity].
  *
  * This method only works if you have launched the activity using [navigateTo] or used [toBundle]
