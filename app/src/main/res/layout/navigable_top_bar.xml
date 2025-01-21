@@ -7,9 +7,9 @@
 
     <ImageButton
         android:id="@+id/navigable_top_bar_back_action"
-        style="@style/icon_button"
+        style="@style/icon_button_top_bar"
         android:contentDescription="@string/back_icon_content_description"
-        android:src="@drawable/arrow_left_white"
+        android:src="@drawable/arrow_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
@@ -40,20 +40,20 @@
 
     <ImageButton
         android:id="@+id/navigable_top_bar_secondary_action"
-        style="@style/icon_button"
+        style="@style/icon_button_top_bar"
         android:contentDescription="@string/secondary_action_icon_content_description"
         app:layout_constraintEnd_toStartOf="@id/navigable_top_bar_primary_action"
         app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_back_action"
         app:layout_constraintTop_toTopOf="@id/navigable_top_bar_back_action"
-        tools:src="@drawable/play_circle_white" />
+        tools:src="@drawable/play_circle" />
 
     <ImageButton
         android:id="@+id/navigable_top_bar_primary_action"
-        style="@style/icon_button"
+        style="@style/icon_button_top_bar"
         android:contentDescription="@string/primary_action_icon_content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_back_action"
         app:layout_constraintTop_toTopOf="@id/navigable_top_bar_back_action"
-        tools:src="@drawable/bookmark_simple_white" />
+        tools:src="@drawable/bookmark_simple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

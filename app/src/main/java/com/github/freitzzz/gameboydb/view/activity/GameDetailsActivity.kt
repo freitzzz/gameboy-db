@@ -44,12 +44,12 @@ class GameDetailsActivity : AppCompatActivity() {
         gameViewModel.liveState.observe(this) {
             when (it) {
                 is GameMarkedFavorite -> primaryAction.let {
-                    primaryAction.setImageResource(R.drawable.bookmark_simple_fill_white)
+                    primaryAction.setImageResource(R.drawable.bookmark_simple_fill)
                     showToast(R.string.game_marked_favorite)
                 }
 
                 is GameUnmarkedFavorite -> primaryAction.let {
-                    primaryAction.setImageResource(R.drawable.bookmark_simple_white)
+                    primaryAction.setImageResource(R.drawable.bookmark_simple)
                     showToast(R.string.game_unmarked_favorite)
                 }
 
@@ -91,8 +91,8 @@ class GameDetailsActivity : AppCompatActivity() {
             game.rating?.times(10)?.toInt() ?: 0
 
         viewOf<ImageView>(R.id.navigable_top_bar_primary_action).apply {
-            val res = if (game.favorite) R.drawable.bookmark_simple_fill_white
-            else R.drawable.bookmark_simple_white
+            val res = if (game.favorite) R.drawable.bookmark_simple_fill
+            else R.drawable.bookmark_simple
 
             setImageResource(res)
             setOnClickListener {

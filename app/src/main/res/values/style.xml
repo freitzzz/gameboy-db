@@ -19,6 +19,13 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="icon_button_top_bar">
+        <item name="android:layout_width">@dimen/icon_button_size</item>
+        <item name="android:layout_height">@dimen/icon_button_size</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tint">@color/onPrimary</item>
+    </style>
+
     <style name="floating_action_button" parent="Theme.GameboyDB">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
