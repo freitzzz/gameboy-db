@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.DefaultConfig
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +18,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        project.injectAppConfig(this)
     }
 
     buildTypes {
@@ -36,6 +40,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -57,4 +62,13 @@ dependencies {
     testImplementation(libs.androidx.arch.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+/**
+ * Injects all properties that start with "app." in the BuildConfig file as const string values.
+ */
+fun Project.injectAppConfig(config: DefaultConfig) = with("app.") {
+    this@injectAppConfig.properties.filter { it.key.startsWith(this) }.onEach {
+        config.buildConfigField("String", it.key.removePrefix(this).uppercase(), "\"${it.value}\"")
+    }
 }
