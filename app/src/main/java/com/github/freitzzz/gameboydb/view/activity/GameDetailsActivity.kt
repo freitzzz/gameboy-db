@@ -9,6 +9,7 @@ import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.core.allOf
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.view.adapter.RecyclerViewAdapter
+import com.github.freitzzz.gameboydb.view.custom.ScreenshotDialog
 import com.github.freitzzz.gameboydb.view.displayMetrics
 import com.github.freitzzz.gameboydb.view.drawableRes
 import com.github.freitzzz.gameboydb.view.get
@@ -117,9 +118,12 @@ class GameDetailsActivity : AppCompatActivity() {
             onLayoutParams = {
                 marginEnd = recyclerView.resources.getDimension(R.dimen.large_gap).toInt()
             },
-            onBind = {
-                if (it.scheme == "file") {
-                    (this as ImageView).setImageURI(it)
+            onBind = { uri ->
+                if (uri.scheme == "file") {
+                    (this as ImageView).setImageURI(uri)
+                    this.setOnClickListener {
+                        ScreenshotDialog(this@GameDetailsActivity, uri).show()
+                    }
                 }
             }
         )
