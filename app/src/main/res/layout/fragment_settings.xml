@@ -48,7 +48,7 @@
         android:layout_marginVertical="@dimen/normal_gap"
         app:icon="@drawable/translate"
         app:label="@string/language"
-        app:value="English" />
+        app:value="@string/current_language" />
 
     <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
         android:layout_marginVertical="@dimen/normal_gap"
         app:icon="@drawable/palette"
         app:label="@string/theme"
-        app:value="Light" />
+        app:value="@string/theme_system" />
 
     <com.github.freitzzz.gameboydb.view.custom.SwitchPreference
         android:layout_width="match_parent"

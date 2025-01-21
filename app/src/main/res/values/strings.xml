@@ -27,4 +27,8 @@
     <string name="offline_mode">Offline Mode</string>
     <string name="information">Information</string>
     <string name="app_version">Version</string>
+    <string name="theme_day">Day</string>
+    <string name="theme_night">Night</string>
+    <string name="theme_system">System</string>
+    <string name="current_language">English</string>
 </resources>
