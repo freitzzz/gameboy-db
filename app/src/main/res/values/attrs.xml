@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="label" format="reference|string" localization="suggested" />
-    <attr name="value" format="reference|string|boolean" localization="suggested" />
+    <attr name="label" format="reference|string" />
+    <attr name="value" format="reference|string|boolean" />
     <attr name="icon" format="reference" />
-    <attr name="editable" format="boolean"/>
+    <attr name="editable" format="boolean" />
 
     <declare-styleable name="ValuesPreference">
         <attr name="label" />
         <attr name="value" />
         <attr name="icon" />
-        <attr name="editable"/>
+        <attr name="editable" />
     </declare-styleable>
 
     <declare-styleable name="SwitchPreference">
         <attr name="label" />
         <attr name="value" />
         <attr name="icon" />
+    </declare-styleable>
+
+    <declare-styleable name="NavigableTopBar">
+        <attr name="title" format="string"/>
+        <attr name="subtitle" format="string"/>
+        <attr name="primaryActionIcon" format="reference"/>
+        <attr name="secondaryActionIcon" format="reference"/>
     </declare-styleable>
 </resources>

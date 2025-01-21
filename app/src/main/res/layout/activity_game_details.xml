@@ -45,13 +45,14 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/large_gap">
 
-        <include
-            layout="@layout/navigable_top_bar"
+        <com.github.freitzzz.gameboydb.view.custom.NavigableTopBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:primaryActionIcon="@drawable/bookmark_simple"
+            app:secondaryActionIcon="@drawable/play_circle"/>
 
         <include
             layout="@layout/game_actions_bar"

@@ -14,7 +14,6 @@ import com.github.freitzzz.gameboydb.view.displayMetrics
 import com.github.freitzzz.gameboydb.view.drawableRes
 import com.github.freitzzz.gameboydb.view.get
 import com.github.freitzzz.gameboydb.view.landscape
-import com.github.freitzzz.gameboydb.view.popBack
 import com.github.freitzzz.gameboydb.view.setText
 import com.github.freitzzz.gameboydb.view.show
 import com.github.freitzzz.gameboydb.view.showToast
@@ -99,10 +98,6 @@ class GameDetailsActivity : AppCompatActivity() {
             setOnClickListener {
                 gameViewModel.mark()
             }
-        }
-
-        view(R.id.navigable_top_bar_back_action).setOnClickListener {
-            popBack()
         }
 
         val sheet = BottomSheetBehavior.from(view(R.id.game_details_sheet))
