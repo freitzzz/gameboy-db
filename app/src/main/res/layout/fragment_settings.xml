@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_500"
-    tools:context=".view.fragment.SettingsFragment">
+    android:orientation="vertical"
+    tools:context=".view.fragment.SettingsFragment"
+    tools:padding="@dimen/large_gap">
 
-</FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/project_support_cta"
+        android:textAlignment="center"
+        android:textSize="@dimen/extra_title_size"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/github_logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/project_support_cta_description"
+        android:textAlignment="center"
+        android:textColor="@color/subtitle"
+        android:textSize="@dimen/subtitle_size" />
+
+    <Button
+        android:id="@+id/settings_star_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/star"
+        android:text="@string/project_support_cta_button"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_gap"
+        android:text="@string/preferences"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold" />
+
+    <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        app:icon="@drawable/translate"
+        app:label="@string/language"
+        app:value="English" />
+
+    <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        app:icon="@drawable/palette"
+        app:label="@string/theme"
+        app:value="Light" />
+
+    <com.github.freitzzz.gameboydb.view.custom.SwitchPreference
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        app:icon="@drawable/wifi_slash"
+        app:label="@string/offline_mode"
+        app:value="false" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/large_gap"
+        android:text="@string/information"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold" />
+
+    <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
+        android:id="@+id/settings_preference_app_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/normal_gap"
+        app:editable="false"
+        app:icon="@drawable/resource_package"
+        app:label="@string/app_version"
+        tools:value="0.0.1" />
+</LinearLayout>

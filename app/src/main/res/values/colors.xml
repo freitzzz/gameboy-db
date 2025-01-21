@@ -14,7 +14,7 @@
     <!-- Material Colors (https://lh3.googleusercontent.com/k6WO1fd7T40A9JvSVfHqs0CPLFyTEDCecsVGxEDhOaTP0wUTPYOVVkxt60hKxBprgNoMqs8OyKqtlaQ4tDBtQJs-fTcZrpZEjxhUVQ=w1064-v0) -->
     <color name="primary">@color/black</color>
     <color name="primaryVariant">#060606</color>
-    <color name="secondary">@color/gray</color>
+    <color name="secondary">#585858</color>
     <color name="secondaryVariant">#c3c3ff</color>
     <color name="background">@color/white</color>
     <color name="surface">@color/white</color>

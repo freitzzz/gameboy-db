@@ -18,4 +18,13 @@
     <string name="esrb_rating">ESRB Rating</string>
     <string name="developers">Developers</string>
     <string name="publishers">Publishers</string>
+    <string name="preferences">Preferences</string>
+    <string name="project_support_cta">Support the project!</string>
+    <string name="project_support_cta_description">Leave feedback on our repository</string>
+    <string name="project_support_cta_button">Star us on GitHub</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="information">Information</string>
+    <string name="app_version">Version</string>
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="label" format="reference|string" localization="suggested" />
+    <attr name="value" format="reference|string|boolean" localization="suggested" />
+    <attr name="icon" format="reference" />
+    <attr name="editable" format="boolean"/>
+
+    <declare-styleable name="ValuesPreference">
+        <attr name="label" />
+        <attr name="value" />
+        <attr name="icon" />
+        <attr name="editable"/>
+    </declare-styleable>
+
+    <declare-styleable name="SwitchPreference">
+        <attr name="label" />
+        <attr name="value" />
+        <attr name="icon" />
+    </declare-styleable>
+</resources>
