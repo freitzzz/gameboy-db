@@ -11,7 +11,7 @@ import com.github.freitzzz.gameboydb.view.viewOf
 class ValuesPreference @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : LinearLayout(context, attrs) {
-    private var label = ""
+    var label = ""
         set(value) = viewOf<TextView>(R.id.values_preference_label).let {
             it.text = value
             field = value
