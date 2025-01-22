@@ -47,6 +47,31 @@ data class Right<L, R>(val value: R) : Either<L, R>()
 
 typealias OperationResult<R> = Either<OperationError, R>
 
+fun <R> runSafe(
+    call: () -> OperationResult<R>,
+): OperationResult<R> {
+    return try {
+        call()
+    } catch (error: Throwable) {
+        Left(Unknown(error.toString()))
+    }
+}
+
+fun <R> runSafe(
+    call: () -> OperationResult<R>,
+    onError: ((error: Throwable) -> OperationError)? = null,
+): OperationResult<R> {
+    return try {
+        call()
+    } catch (error: Throwable) {
+        when (onError) {
+            null -> Left(Unknown(error.toString()))
+            else -> Left(onError(error))
+        }
+    }
+}
+
+
 suspend fun <R> runSafeSuspend(
     call: suspend () -> OperationResult<R>,
 ): OperationResult<R> {

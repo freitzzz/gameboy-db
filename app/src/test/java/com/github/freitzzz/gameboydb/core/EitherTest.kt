@@ -5,12 +5,39 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
-import com.github.freitzzz.gameboydb.core.UnknownError as Unknown
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import com.github.freitzzz.gameboydb.core.UnknownError as Unknown
 
 class EitherTest {
+
+    @Test
+    fun `runSafe returns Left of UnknownError if call throws and onError is not passed`() {
+        val throwable = Exception("something went wrong")
+        val unknown = Unknown(throwable.toString())
+
+        val result = runSafe<Nothing>(call = { throw throwable })
+        assertEquals(Left<OperationError, Nothing>(unknown), result)
+    }
+
+    @Test
+    fun `runSafe uses onError result if call is passed`() {
+        val throwable = Exception("something went wrong")
+        val error = NoInternetConnectionError("turn on wifi!!")
+
+        val result = runSafe<Nothing>(call = { throw throwable }) { error }
+        assertEquals(Left<OperationError, Nothing>(error), result)
+    }
+
+    @Test
+    fun `runSafe returns call result if nothing is thrown`() {
+        val error = NoInternetConnectionError("turn on wifi!!")
+
+        val result = runSafe(call = { Right("wifi is working!!") }) { error }
+        assertEquals(Right<OperationError, String>("wifi is working!!"), result)
+    }
+
     @Test
     fun `runSafeSuspend returns Left of UnknownError if call throws and onError is not passed`() =
         runTest {
