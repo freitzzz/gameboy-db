@@ -19,7 +19,10 @@
 
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="divider_height">8dp</dimen>
+
     <dimen name="gallery_cover">256dp</dimen>
     <dimen name="favorite_cover">96dp</dimen>
     <dimen name="game_details_screenshot">96dp</dimen>
+    <dimen name="preference_check_size">18dp</dimen>
 </resources>

@@ -7,6 +7,7 @@
     <string name="game_cover_content_description">This is the cover image of the game.</string>
     <string name="play_gameplay_button_content_description">Use this action to watch the game gameplay.</string>
     <string name="game_esrb_rating_content_description">This is the ESRB rating of the game.</string>
+    <string name="list_item_check_content_description">This is the item that is active.</string>
     <string name="game_marked_favorite">The game was added to the favorites list.</string>
     <string name="game_unmarked_favorite">The game was removed from the favorites list.</string>
     <string name="top_rated">Top Rated</string>

@@ -4,6 +4,7 @@
     <attr name="value" format="reference|string|boolean" />
     <attr name="icon" format="reference" />
     <attr name="editable" format="boolean" />
+    <attr name="checked" format="boolean" />
 
     <declare-styleable name="ValuesPreference">
         <attr name="label" />
@@ -18,9 +19,13 @@
         <attr name="icon" />
     </declare-styleable>
 
+    <declare-styleable name="PreferenceListItem">
+        <attr name="value"/>
+        <attr name="checked"/>
+    </declare-styleable>
+
     <declare-styleable name="NavigableTopBar">
         <attr name="title" format="string"/>
-        <attr name="subtitle" format="string"/>
         <attr name="primaryActionIcon" format="reference"/>
         <attr name="secondaryActionIcon" format="reference"/>
     </declare-styleable>

@@ -11,7 +11,7 @@
         style="@style/icon_button_top_bar"
         android:contentDescription="@string/back_icon_content_description"
         android:src="@drawable/arrow_left"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/navigable_top_bar_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/navigable_top_bar_title" />
 
@@ -25,19 +25,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Title" />
-
-    <TextView
-        android:id="@+id/navigable_top_bar_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_gap"
-        android:textAlignment="center"
-        android:textSize="@dimen/subtitle_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigable_top_bar_title"
-        tools:text="Subtitle" />
 
     <ImageButton
         android:id="@+id/navigable_top_bar_secondary_action"

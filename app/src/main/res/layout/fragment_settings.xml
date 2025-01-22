@@ -45,6 +45,7 @@
     <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/settings_preference_language"
         android:layout_marginVertical="@dimen/normal_gap"
         app:icon="@drawable/translate"
         app:label="@string/language"
@@ -53,6 +54,7 @@
     <com.github.freitzzz.gameboydb.view.custom.ValuesPreference
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/settings_preference_theme"
         android:layout_marginVertical="@dimen/normal_gap"
         app:icon="@drawable/palette"
         app:label="@string/theme"
