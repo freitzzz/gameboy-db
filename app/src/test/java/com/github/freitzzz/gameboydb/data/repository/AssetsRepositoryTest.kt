@@ -1,4 +1,4 @@
-package com.github.freitzzz.gameboydb.data.repositories
+package com.github.freitzzz.gameboydb.data.repository
 
 import android.content.Context
 import com.github.freitzzz.gameboydb.core.DownloadError
@@ -8,7 +8,6 @@ import com.github.freitzzz.gameboydb.core.OperationError
 import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.data.http.NetworkingClient
 import com.github.freitzzz.gameboydb.data.http.Response
-import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.justRun
