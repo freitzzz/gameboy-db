@@ -7,14 +7,20 @@ import com.github.freitzzz.gameboydb.data.repository.AssetsRepository
 import com.github.freitzzz.gameboydb.data.repository.FakeGamesRepository
 import com.github.freitzzz.gameboydb.data.repository.GamesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
+import com.github.freitzzz.gameboydb.data.repository.PreferencesRepository
+import com.github.freitzzz.gameboydb.data.repository.SharedPreferencesRepository
+import com.github.freitzzz.gameboydb.domain.ApplyTheme
 import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.FavoriteGame
+import com.github.freitzzz.gameboydb.domain.GetAvailableThemes
 import com.github.freitzzz.gameboydb.domain.GetControversialGames
 import com.github.freitzzz.gameboydb.domain.GetFavoriteGames
+import com.github.freitzzz.gameboydb.domain.GetTheme
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
 import com.github.freitzzz.gameboydb.domain.LoadGame
 import com.github.freitzzz.gameboydb.domain.UnfavoriteGame
 import com.github.freitzzz.gameboydb.domain.state.GameUpdates
+import com.github.freitzzz.gameboydb.domain.state.PreferenceUpdates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -35,12 +41,22 @@ private fun registerData(
             CoroutineScope(Dispatchers.IO)
         )
     )
+    store<PreferencesRepository>(
+        SharedPreferencesRepository(
+            context.getSharedPreferences("app", Context.MODE_PRIVATE)
+        )
+    )
 }
 
 private fun registerDomain(
     vault: Vault,
 ) = vault.apply {
     store(GameUpdates())
+    store(PreferenceUpdates())
+
+    store(GetAvailableThemes())
+    store(GetTheme(get()))
+    store(ApplyTheme(get(), get()))
 
     store(DownloadImage(get()))
     store(GetTopRatedGames(get()))
