@@ -18,9 +18,36 @@
         <item name="android:dividerHeight">@dimen/divider_height</item>
         <item name="android:divider">@android:color/transparent</item>
 
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="21">@color/primaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/primary</item>
+
+        <!-- Default drawables/icon colors -->
+        <item name="drawableTint">@color/primary</item>
+    </style>
+
+    <style name="Theme.GameboyDB.Day" parent="Theme.GameboyDB"/>
+
+    <style name="Theme.GameboyDB.Orange" parent="Theme.GameboyDB">
+        <item name="colorPrimary">@color/orangePrimary</item>
+        <item name="colorPrimaryVariant">@color/orangePrimaryVariant</item>
+        <item name="colorSecondary">@color/orangeSecondary</item>
+        <item name="colorSecondaryVariant">@color/orangeSecondaryVariant</item>
+        <item name="android:colorBackground">@color/orangeBackground</item>
+        <item name="colorSurface">@color/orangeSurface</item>
+        <item name="colorError">@color/orangeError</item>
+        <item name="colorOnPrimary">@color/orangeOnPrimary</item>
+        <item name="colorOnSecondary">@color/orangeOnSecondary</item>
+        <item name="colorOnBackground">@color/orangeOnBackground</item>
+        <item name="colorOnSurface">@color/orangeOnSurface</item>
+        <item name="colorOnError">@color/orangeOnError</item>
+
+        <item name="android:dividerHeight">@dimen/divider_height</item>
+        <item name="android:divider">@android:color/transparent</item>
+
+        <item name="android:statusBarColor" tools:targetApi="21">@color/primaryVariant</item>
+        <item name="android:textColor">@color/primary</item>
+
+        <!-- Default drawables/icon colors -->
+        <item name="drawableTint">@color/primary</item>
     </style>
 </resources>

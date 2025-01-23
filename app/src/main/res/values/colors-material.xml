@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orangePrimary">#FF5722</color>
+    <color name="orangePrimaryVariant">#E64A19</color>
+    <color name="orangeSecondary">#FFAB91</color>
+    <color name="orangeSecondaryVariant">#FFCCBC</color>
+    <color name="orangeBackground">#FFF3E0</color>
+    <color name="orangeSurface">#FFE0B2</color>
+    <color name="orangeError">#D84315</color>
+    <color name="orangeOnPrimary">#FFFFFF</color>
+    <color name="orangeOnSecondary">#000000</color>
+    <color name="orangeOnBackground">#000000</color>
+    <color name="orangeOnSurface">#000000</color>
+    <color name="orangeOnError">#FFFFFF</color>
+</resources>
