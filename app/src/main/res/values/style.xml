@@ -11,6 +11,7 @@
         <item name="android:paddingBottom">@dimen/small_gap</item>
         <item name="android:paddingStart">@dimen/large_gap</item>
         <item name="android:paddingEnd">@dimen/large_gap</item>
+        <item name="drawableTint">@color/onPrimary</item>
     </style>
 
     <style name="icon_button">

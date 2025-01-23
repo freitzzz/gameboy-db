@@ -22,10 +22,11 @@
         android:layout_height="wrap_content"
         android:text="@string/project_support_cta_description"
         android:textAlignment="center"
-        android:textColor="@color/subtitle"
+        android:textColor="@color/secondary"
         android:textSize="@dimen/subtitle_size" />
 
     <Button
+        style="@style/button"
         android:id="@+id/settings_star_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
