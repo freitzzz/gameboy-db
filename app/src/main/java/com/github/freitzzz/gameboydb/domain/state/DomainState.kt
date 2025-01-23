@@ -1,5 +1,6 @@
 package com.github.freitzzz.gameboydb.domain.state
 
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -8,7 +9,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  * A base class for defining the state of a domain topic.
  */
 abstract class DomainState<T> : Flow<T> {
-    private val inner by lazy { MutableSharedFlow<T>(replay = 1) }
+    private val inner by lazy {
+        MutableSharedFlow<T>(
+            replay = 1,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST,
+        )
+    }
 
     override suspend fun collect(collector: FlowCollector<T>) = inner.collect(collector)
 
