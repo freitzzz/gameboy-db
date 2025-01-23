@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import com.github.freitzzz.gameboydb.data.model.Game
-import com.github.freitzzz.gameboydb.view.custom.model.Preference
 import kotlin.reflect.KClass
 
 /**
@@ -14,8 +13,7 @@ import kotlin.reflect.KClass
  * This list is used in [toBundle] to automatically create a bundle with a value.
  */
 val extraKeys = mapOf<KClass<*>, String>(
-    Game::class to "game",
-    Preference::class to "preference"
+    Game::class to "game"
 )
 
 /**
