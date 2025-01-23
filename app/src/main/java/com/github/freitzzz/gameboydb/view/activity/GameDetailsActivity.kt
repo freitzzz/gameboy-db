@@ -2,7 +2,6 @@ package com.github.freitzzz.gameboydb.view.activity
 
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.freitzzz.gameboydb.R
@@ -30,14 +29,13 @@ import com.github.freitzzz.gameboydb.view.withRes
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
-class GameDetailsActivity : AppCompatActivity() {
+class GameDetailsActivity : AppActivity(R.layout.activity_game_details) {
     private val gameViewModel by lazy {
         viewModel<GameViewModel>(StateViewModelFactory(intent.get<Game>()!!))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game_details)
         updateViews(gameViewModel.state.value)
 
         val primaryAction = viewOf<ImageView>(R.id.navigable_top_bar_primary_action)

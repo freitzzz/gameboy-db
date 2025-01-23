@@ -1,14 +1,13 @@
 package com.github.freitzzz.gameboydb.view.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.view.fragment.FavoritesFragment
-import com.github.freitzzz.gameboydb.view.fragment.SettingsFragment
 import com.github.freitzzz.gameboydb.view.fragment.FeedFragment
+import com.github.freitzzz.gameboydb.view.fragment.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppActivity(R.layout.activity_main) {
     private val virtualPages = mutableMapOf(
         R.id.menu_item_feed_page to FeedFragment(),
         R.id.menu_item_favorites_page to FavoritesFragment(),
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val bottomBar = findViewById<BottomNavigationView>(R.id.bottom_bar)
         this.selectedItemId = bottomBar.selectedItemId
