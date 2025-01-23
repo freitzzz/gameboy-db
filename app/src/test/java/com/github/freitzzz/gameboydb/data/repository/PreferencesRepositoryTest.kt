@@ -51,12 +51,12 @@ class SharedPreferencesRepositoryTest {
         every { sharedPreferences.getInt(PreferenceKey.THEME.value, default) } returns value
 
         val result = repository.theme()
-        assertEquals(Some(Theme(value, "")), result)
+        assertEquals(Some(Theme(value)), result)
     }
 
     @Test
     fun `save returns left if shared preferences editor throws exception`() {
-        val theme = Theme(0, "")
+        val theme = Theme(0)
         val exception = Exception("disk failure!!")
         val repository = SharedPreferencesRepository(sharedPreferences)
 
@@ -69,7 +69,7 @@ class SharedPreferencesRepositoryTest {
 
     @Test
     fun `save returns right if shared preferences editor does not throw exception`() {
-        val theme = Theme(0, "")
+        val theme = Theme(0)
         val repository = SharedPreferencesRepository(sharedPreferences)
 
         every {

@@ -19,9 +19,7 @@ class SharedPreferencesRepository(
 ) : PreferencesRepository {
     override fun theme(): Option<Theme> {
         return kotlin.runCatching {
-            getInt(PreferenceKey.THEME).map {
-                Theme(it, "")
-            }
+            getInt(PreferenceKey.THEME).map { Theme(it) }
         }.getOrElse { None() }
     }
 
