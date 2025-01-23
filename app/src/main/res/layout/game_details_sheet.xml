@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_gap"
-        android:textColor="@color/subtitle"
+        android:textColor="@color/secondary"
         android:textSize="@dimen/subtitle_size"
         tools:text="Fantasy, RPG" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/game_details_sheet_platforms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/subtitle"
+        android:textColor="@color/secondary"
         android:textSize="@dimen/subtitle_size"
         tools:text="Game Boy/Game Boy Color" />
 
@@ -35,7 +35,7 @@
         android:id="@+id/game_details_sheet_release_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/subtitle"
+        android:textColor="@color/secondary"
         android:textSize="@dimen/subtitle_size"
         tools:text="1998" />
 

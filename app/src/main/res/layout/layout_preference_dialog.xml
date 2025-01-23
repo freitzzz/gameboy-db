@@ -23,5 +23,5 @@
         android:layout_marginHorizontal="@dimen/normal_gap"
         android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/navigable_top_bar"
-        tools:listitem="@layout/layout_preference_list_item" />
+        tools:listitem="@layout/layout_checked_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
