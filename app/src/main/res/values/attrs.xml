@@ -19,7 +19,7 @@
         <attr name="icon" />
     </declare-styleable>
 
-    <declare-styleable name="PreferenceListItem">
+    <declare-styleable name="CheckedListItem">
         <attr name="value"/>
         <attr name="checked"/>
     </declare-styleable>

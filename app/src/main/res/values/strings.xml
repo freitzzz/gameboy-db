@@ -31,5 +31,6 @@
     <string name="theme_day">Day</string>
     <string name="theme_night">Night</string>
     <string name="theme_system">System</string>
+    <string name="theme_orange">Orange</string>
     <string name="current_language">English</string>
 </resources>
