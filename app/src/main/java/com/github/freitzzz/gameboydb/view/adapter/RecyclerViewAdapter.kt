@@ -58,6 +58,32 @@ class RecyclerViewAdapter<T>(
             }
         }
     }
+
+    fun sync(data: List<T>) {
+        val oldSize = this.data.size
+        if (data.size < oldSize) {
+            for (i in data.size..<oldSize) {
+                this.data.removeAt(i)
+            }
+
+            notifyItemRangeRemoved(data.size, oldSize-data.size)
+        }
+
+        if (data.size > oldSize) {
+            for (i in oldSize..<data.size) {
+                this.data.add(data[i])
+            }
+
+            notifyItemRangeInserted(data.size, data.size-oldSize)
+        }
+
+        for (i in data.indices) {
+            if (data[i] != this.data[i]) {
+                this.data[i] = data[i]
+                notifyItemChanged(i)
+            }
+        }
+    }
 }
 
 class ItemViewHolder<T>(

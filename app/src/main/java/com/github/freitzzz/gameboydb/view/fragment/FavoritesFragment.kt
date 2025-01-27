@@ -54,10 +54,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         val data = viewModel.favorites()
         data.observe(viewLifecycleOwner) {
-            when (this) {
-                ValueChangeEvent.INSERT -> adapter.addAll(it)
-                ValueChangeEvent.DELETE -> adapter.remove(it)
-            }
+            adapter.sync(it)
         }
     }
 }

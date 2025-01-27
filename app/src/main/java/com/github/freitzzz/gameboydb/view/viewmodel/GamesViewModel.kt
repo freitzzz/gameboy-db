@@ -32,7 +32,11 @@ class GamesViewModel : ViewModel() {
 
     private val topRatedGames by lazy { MutableLiveData(listOf<GamePreview>()) }
     private val controversialGames by lazy { MutableLiveData(listOf<GamePreview>()) }
-    private val favoriteGames by lazy { LiveDataValueNotifier(listOf<GamePreview>()) }
+    private val favoriteGames: MutableLiveData<List<GamePreview>> by lazy {
+        MutableLiveData(
+            mutableListOf()
+        )
+    }
 
     fun topRated(): LiveData<List<GamePreview>> {
         if (topRatedGames.value?.isNotEmpty() == true) {
@@ -77,7 +81,11 @@ class GamesViewModel : ViewModel() {
         return controversialGames
     }
 
-    fun favorites(): LiveDataValueNotifier<List<GamePreview>> {
+    fun favorites(): MutableLiveData<List<GamePreview>> {
+        if (favoriteGames.value?.isNotEmpty() == true) {
+            return favoriteGames
+        }
+
         viewModelScope.launch {
             val tiles = getFavoriteGames()
                 .unfold { arrayListOf() }
@@ -90,11 +98,17 @@ class GamesViewModel : ViewModel() {
 
             favoriteGames.postValue(tiles)
             gameUpdates.onEach {
+                val preview = it.preview()
+                val games = favoriteGames.value!! as MutableList<GamePreview>
+
                 if (it.favorite) {
-                    favoriteGames.update(arrayListOf(it.preview()), ValueChangeEvent.INSERT)
+                    games.add(preview)
                 } else {
-                    favoriteGames.update(arrayListOf(it.preview()), ValueChangeEvent.DELETE)
+                    games.remove(preview)
                 }
+
+                println("crazy... $games")
+                favoriteGames.postValue(games)
             }.shareIn(this, SharingStarted.Eagerly)
         }
 
@@ -112,10 +126,5 @@ class GamesViewModel : ViewModel() {
                 }.each(onLoad)
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        favoriteGames.clear()
     }
 }
