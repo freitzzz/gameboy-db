@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage")
 import com.android.build.api.dsl.DefaultConfig
 
 plugins {
@@ -41,6 +42,9 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+    }
+    androidResources {
+        generateLocaleConfig = true
     }
 }
 

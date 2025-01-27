@@ -12,6 +12,7 @@ import com.github.freitzzz.gameboydb.data.model.Theme
 import com.github.freitzzz.gameboydb.domain.ApplyTheme
 import com.github.freitzzz.gameboydb.domain.GetAvailableThemes
 import com.github.freitzzz.gameboydb.domain.GetTheme
+import com.github.freitzzz.gameboydb.domain.OpenLanguageSettings
 import com.github.freitzzz.gameboydb.domain.state.PreferenceUpdates
 import com.github.freitzzz.gameboydb.domain.state.ThemeChanged
 import com.github.freitzzz.gameboydb.view.openExternal
@@ -24,6 +25,7 @@ class SettingsViewModel : ViewModel() {
     private val applyTheme by lazy { vault().get<ApplyTheme>() }
     private val getTheme by lazy { vault().get<GetTheme>() }
     private val getAvailableThemes by lazy { vault().get<GetAvailableThemes>() }
+    private val openLanguageSettings by lazy { vault().get<OpenLanguageSettings>() }
     private val preferenceUpdates by lazy { vault().get<PreferenceUpdates>() }
 
     private val themeChanges: LiveData<Theme> by lazy {
@@ -40,6 +42,8 @@ class SettingsViewModel : ViewModel() {
     fun openProjectRepository(context: Context) = context.openExternal(
         Uri.parse(BuildConfig.REPOSITORY_URL)
     )
+
+    fun openAppLanguageSettings(context: Context) = this.openLanguageSettings(context)
 
     fun appVersion() = BuildConfig.VERSION_NAME
     fun theme() = getTheme()

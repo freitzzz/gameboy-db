@@ -18,6 +18,7 @@ import com.github.freitzzz.gameboydb.domain.GetFavoriteGames
 import com.github.freitzzz.gameboydb.domain.GetTheme
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
 import com.github.freitzzz.gameboydb.domain.LoadGame
+import com.github.freitzzz.gameboydb.domain.OpenLanguageSettings
 import com.github.freitzzz.gameboydb.domain.UnfavoriteGame
 import com.github.freitzzz.gameboydb.domain.state.GameUpdates
 import com.github.freitzzz.gameboydb.domain.state.PreferenceUpdates
@@ -57,6 +58,7 @@ private fun registerDomain(
     store(GetAvailableThemes())
     store(GetTheme(get()))
     store(ApplyTheme(get(), get()))
+    store(OpenLanguageSettings())
 
     store(DownloadImage(get()))
     store(GetTopRatedGames(get()))

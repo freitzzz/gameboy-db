@@ -107,7 +107,6 @@ class GamesViewModel : ViewModel() {
                     games.remove(preview)
                 }
 
-                println("crazy... $games")
                 favoriteGames.postValue(games)
             }.shareIn(this, SharingStarted.Eagerly)
         }
