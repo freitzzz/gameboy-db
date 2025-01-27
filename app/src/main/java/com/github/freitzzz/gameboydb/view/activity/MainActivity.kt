@@ -19,20 +19,29 @@ class MainActivity : AppActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        virtualPages.keys.onEach {
+            val fragment = supportFragmentManager.findFragmentByTag(it.toString())
+            if (fragment != null) {
+                virtualPages[it] = fragment
+            }
+        }
+
         val bottomBar = findViewById<BottomNavigationView>(R.id.bottom_bar)
         this.selectedItemId = bottomBar.selectedItemId
 
-        virtualPages[this.selectedItemId] = supportFragmentManager.findFragmentById(
+        val currentFragment = supportFragmentManager.findFragmentById(
             R.id.fragment_virtual_page
         )!!
 
-        bottomBar.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.menu_item_feed_page -> swapVirtualPage(it.itemId)
-                R.id.menu_item_favorites_page -> swapVirtualPage(it.itemId)
-                R.id.menu_item_settings_page -> swapVirtualPage(it.itemId)
-            }
+        when (currentFragment) {
+            is FeedFragment -> this.selectedItemId = R.id.menu_item_feed_page
+            is FavoritesFragment -> this.selectedItemId = R.id.menu_item_favorites_page
+            is SettingsFragment -> this.selectedItemId = R.id.menu_item_settings_page
+        }
 
+        virtualPages[this.selectedItemId] = currentFragment
+        bottomBar.setOnItemSelectedListener {
+            swapVirtualPage(it.itemId)
             selectedItemId = it.itemId
             true
         }
@@ -44,7 +53,6 @@ class MainActivity : AppActivity(R.layout.activity_main) {
         }
 
         val fragment = virtualPages[itemId] ?: return
-
         supportFragmentManager.beginTransaction().apply {
             setReorderingAllowed(true)
 
