@@ -12,6 +12,7 @@ interface GamesRepository {
     suspend fun top(): OperationResult<List<GamePreview>>
     suspend fun controversial(): OperationResult<List<GamePreview>>
     suspend fun favorite(): OperationResult<List<GamePreview>>
+    suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>>
     suspend fun find(id: String): OperationResult<Game>
     suspend fun markFavorite(game: Game): OperationResult<Unit>
     suspend fun unmarkFavorite(game: Game): OperationResult<Unit>
@@ -147,6 +148,8 @@ class FakeGamesRepository : GamesRepository {
         )
     )
 
+    private val games2 = (1..5).flatMap { games }
+
     override suspend fun top(): OperationResult<List<GamePreview>> {
         return Right(games.take(3).map(Game::preview))
     }
@@ -163,19 +166,28 @@ class FakeGamesRepository : GamesRepository {
         )
     }
 
+    override suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>> {
+        return Right(
+            games2
+                .drop((page - 1) * 5)
+                .take(5).filter { it.title.lowercase().contains(query) }
+                .map(Game::preview)
+        )
+    }
+
     override suspend fun find(id: String): OperationResult<Game> {
         val game = games.first { it.id == id }
         return Right(game)
     }
 
     override suspend fun markFavorite(game: Game): OperationResult<Unit> {
-        val idx = games.indexOfFirst { it.id  == game.id }
+        val idx = games.indexOfFirst { it.id == game.id }
         games[idx] = game.copy(favorite = true)
         return Right(Unit)
     }
 
     override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
-        val idx = games.indexOfFirst { it.id  == game.id }
+        val idx = games.indexOfFirst { it.id == game.id }
         games[idx] = game.copy(favorite = false)
         return Right(Unit)
     }
