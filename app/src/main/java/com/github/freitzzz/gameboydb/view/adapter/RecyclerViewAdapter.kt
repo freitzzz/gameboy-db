@@ -7,11 +7,11 @@ import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter<T>(
+open class RecyclerViewAdapter<T>(
     @LayoutRes private val itemLayoutId: Int,
     private val onBind: View.(data: T) -> Unit,
     private val onLayoutParams: LinearLayout.LayoutParams.() -> Unit = {},
-    private val data: MutableList<T> = arrayListOf()
+    private val data: MutableList<T> = arrayListOf(),
 ) : RecyclerView.Adapter<ItemViewHolder<T>>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder<T> {
         val itemView: View =
@@ -46,17 +46,18 @@ class RecyclerViewAdapter<T>(
         addAll(data)
     }
 
-    fun remove(data: List<T>) {
-        for (i in data.indices) {
-            for (j in this.data.indices) {
-                if (this.data[j] == data[i]) {
-                    this.data.removeAt(j)
-                    notifyItemRemoved(j)
+    fun set(data: List<T>) {
+        val oldSize = this.data.size
 
-                    break
-                }
-            }
+        this.data.clear()
+        this.data.addAll(data)
+
+        this.notifyItemRangeRemoved(0, oldSize)
+        if (data.isEmpty()) {
+            return
         }
+
+        this.notifyItemRangeInserted(0, this.data.size)
     }
 
     fun sync(data: List<T>) {
@@ -66,7 +67,7 @@ class RecyclerViewAdapter<T>(
                 this.data.removeAt(i)
             }
 
-            notifyItemRangeRemoved(data.size, oldSize-data.size)
+            notifyItemRangeRemoved(data.size, oldSize - data.size)
         }
 
         if (data.size > oldSize) {
@@ -74,7 +75,7 @@ class RecyclerViewAdapter<T>(
                 this.data.add(data[i])
             }
 
-            notifyItemRangeInserted(data.size, data.size-oldSize)
+            notifyItemRangeInserted(data.size, data.size - oldSize)
         }
 
         for (i in data.indices) {
