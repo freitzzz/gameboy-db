@@ -15,7 +15,6 @@ import com.github.freitzzz.gameboydb.view.setText
 import com.github.freitzzz.gameboydb.view.viewModel
 import com.github.freitzzz.gameboydb.view.viewOf
 import com.github.freitzzz.gameboydb.view.viewmodel.GamesViewModel
-import com.github.freitzzz.gameboydb.view.viewmodel.ValueChangeEvent
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -16,6 +16,9 @@
         android:theme="@style/Theme.GameboyDB"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.SearchGamesActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.GameDetailsActivity"
             android:exported="false" />
         <activity

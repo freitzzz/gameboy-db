@@ -5,6 +5,8 @@ import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.view.fragment.FavoritesFragment
 import com.github.freitzzz.gameboydb.view.fragment.FeedFragment
 import com.github.freitzzz.gameboydb.view.fragment.SettingsFragment
+import com.github.freitzzz.gameboydb.view.navigateTo
+import com.github.freitzzz.gameboydb.view.view
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppActivity(R.layout.activity_main) {
@@ -18,6 +20,10 @@ class MainActivity : AppActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        view(R.id.top_bar_search_icon).setOnClickListener {
+            navigateTo<SearchGamesActivity>()
+        }
 
         virtualPages.keys.onEach {
             val fragment = supportFragmentManager.findFragmentByTag(it.toString())
