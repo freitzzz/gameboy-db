@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.freitzzz.gameboydb.R
 import com.github.freitzzz.gameboydb.view.popBack
+import com.github.freitzzz.gameboydb.view.remove
+import com.github.freitzzz.gameboydb.view.show
 import com.github.freitzzz.gameboydb.view.view
 import com.github.freitzzz.gameboydb.view.viewOf
 
@@ -20,6 +22,11 @@ class NavigableTopBar @JvmOverloads constructor(
             viewOf<TextView>(R.id.navigable_top_bar_title).let {
                 it.text = value
                 field = value
+                if (value.isNullOrEmpty()) {
+                    it.remove()
+                } else {
+                    it.show()
+                }
             }
         }
 
@@ -28,6 +35,11 @@ class NavigableTopBar @JvmOverloads constructor(
             viewOf<ImageButton>(R.id.navigable_top_bar_primary_action).let {
                 it.setImageResource(value ?: 0)
                 field = value
+                if (value == null || value == 0) {
+                    it.remove()
+                } else {
+                    it.show()
+                }
             }
         }
 
@@ -36,6 +48,11 @@ class NavigableTopBar @JvmOverloads constructor(
             viewOf<ImageButton>(R.id.navigable_top_bar_secondary_action).let {
                 it.setImageResource(value ?: 0)
                 field = value
+                if (value == null || value == 0) {
+                    it.remove()
+                } else {
+                    it.show()
+                }
             }
         }
 
