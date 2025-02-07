@@ -15,4 +15,13 @@ class AsyncTest {
         onIO { value++ }
         assertEquals(-1, value)
     }
+
+    @Test
+    fun `withIO blocks current coroutine scope`() = runTest {
+        var value = 0
+        awaitAll(async { value-- })
+
+        withIO { value++ }
+        assertEquals(0, value)
+    }
 }
