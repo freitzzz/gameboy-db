@@ -30,7 +30,7 @@ class GalleryGameSlideShow : Fragment(R.layout.fragment_gallery_game_slide_show)
             itemLayoutId = R.layout.gallery_game_tile,
             onBind = { game ->
                 setText(
-                    R.id.gallery_game_tile_name to game.title,
+                    R.id.gallery_game_tile_name to game.name,
                     R.id.gallery_game_tile_genre to game.genres.joinToString(", "),
                 )
 

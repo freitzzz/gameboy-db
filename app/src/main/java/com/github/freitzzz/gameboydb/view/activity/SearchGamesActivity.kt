@@ -40,7 +40,7 @@ class SearchGamesActivity : AppActivity(R.layout.activity_search_games) {
             itemLayoutId = R.layout.favorite_game_tile,
             onBind = { game ->
                 setText(
-                    R.id.favorite_game_name to game.title,
+                    R.id.favorite_game_name to game.name,
                     R.id.favorite_game_genre to game.genres.joinToString(", "),
                     R.id.favorite_game_platforms to game.platforms.joinToString("/ "),
                 )

@@ -58,7 +58,7 @@ class GameDetailsActivity : AppActivity(R.layout.activity_game_details) {
 
     private fun updateViews(game: Game) {
         setText(
-            R.id.game_details_sheet_title to game.title,
+            R.id.game_details_sheet_name to game.name,
             R.id.game_details_sheet_description to game.description,
             R.id.game_details_sheet_promo to game.promo,
             R.id.game_details_sheet_trivia to game.trivia,

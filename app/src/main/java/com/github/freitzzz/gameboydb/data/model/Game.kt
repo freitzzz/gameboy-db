@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Game(
     val id: String,
-    val title: String,
+    val name: String,
     val description: String,
     val releaseYear: Int,
     val genres: List<String>,
@@ -27,7 +27,7 @@ data class Game(
 
 data class GamePreview(
     val id: String,
-    val title: String,
+    val name: String,
     val genres: List<String>,
     val platforms: List<String>,
     val thumbnail: Uri? = null,
@@ -35,7 +35,7 @@ data class GamePreview(
 
 fun Game.preview() = GamePreview(
     id = this.id,
-    title = this.title,
+    name = this.name,
     genres = this.genres,
     thumbnail = this.thumbnail,
     platforms = this.platforms,
