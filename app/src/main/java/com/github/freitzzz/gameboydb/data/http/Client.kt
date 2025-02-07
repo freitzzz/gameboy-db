@@ -1,5 +1,6 @@
 package com.github.freitzzz.gameboydb.data.http
 
+import com.github.freitzzz.gameboydb.core.ExpectedJsonResponseError
 import com.github.freitzzz.gameboydb.core.Left
 import com.github.freitzzz.gameboydb.core.NoInternetConnectionError
 import com.github.freitzzz.gameboydb.core.OperationError
@@ -7,8 +8,9 @@ import com.github.freitzzz.gameboydb.core.OperationResult
 import com.github.freitzzz.gameboydb.core.Right
 import com.github.freitzzz.gameboydb.core.TimeoutError
 import com.github.freitzzz.gameboydb.core.UnknownError
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.github.freitzzz.gameboydb.core.withIO
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
@@ -24,7 +26,7 @@ open class NetworkingClient(
         endpoint: String,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ):OperationResult<Response> {
+    ): OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.GET, uri, headers = headers))
     }
@@ -35,7 +37,7 @@ open class NetworkingClient(
         data: String? = null,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ):OperationResult<Response> {
+    ): OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.POST, uri, contentType, data, headers))
     }
@@ -46,7 +48,7 @@ open class NetworkingClient(
         data: String? = null,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ):OperationResult<Response> {
+    ): OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.PUT, uri, contentType, data, headers))
     }
@@ -55,7 +57,7 @@ open class NetworkingClient(
         endpoint: String,
         headers: Map<String, String>? = null,
         queryParameters: Map<String, String>? = null
-    ):OperationResult<Response> {
+    ): OperationResult<Response> {
         val uri = resolveUri(baseUrl, endpoint, queryParameters)
         return send(Request(HttpVerb.DELETE, uri, headers = headers))
     }
@@ -63,56 +65,62 @@ open class NetworkingClient(
     suspend fun download(
         url: String,
         headers: Map<String, String>? = null,
-    ):OperationResult<Response> {
+    ): OperationResult<Response> {
         return send(Request(HttpVerb.GET, url, headers = headers))
     }
 
     private suspend fun send(request: Request): OperationResult<Response> {
-        var connection: HttpURLConnection? = null
-        return try {
-            val url = URL(request.uri)
-            connection = (withContext(Dispatchers.IO) {
-                url.openConnection()
-            } as HttpURLConnection).apply {
-                requestMethod = request.verb.name
-                connectTimeout = DEFAULT_TIMEOUT_DURATION
-                readTimeout = DEFAULT_TIMEOUT_DURATION
-                request.headers?.forEach { (key, value) ->
-                    setRequestProperty(key, value)
+        return withIO {
+            var connection: HttpURLConnection? = null
+            try {
+                val url = URL(request.uri)
+                connection = (url.openConnection() as HttpURLConnection).apply {
+                    requestMethod = request.verb.name
+                    connectTimeout = DEFAULT_TIMEOUT_DURATION
+                    readTimeout = DEFAULT_TIMEOUT_DURATION
+                    request.headers?.forEach { (key, value) ->
+                        setRequestProperty(key, value)
+                    }
+                    request.contentType?.let { setRequestProperty("Content-Type", it) }
+                    request.data?.let {
+                        doOutput = true
+                        outputStream.write(it.toByteArray())
+                    }
                 }
-                request.contentType?.let { setRequestProperty("Content-Type", it) }
-                request.data?.let {
-                    doOutput = true
-                    outputStream.write(it.toByteArray())
+
+                val responseCode = connection.responseCode
+                val responseStream = if (responseCode in 200..299) {
+                    connection.inputStream
+                } else {
+                    connection.errorStream
                 }
-            }
 
-            val responseCode = connection.responseCode
-            val responseStream = if (responseCode in 200..299) {
-                connection.inputStream
-            } else {
-                connection.errorStream
-            }
-
-            val responseBytes = responseStream.readBytes()
-            val response = Response(
-                statusCode = responseCode,
-                body = responseBytes,
-                headers = connection.headerFields.filterKeys { it != null }
+                val responseBytes = responseStream.readBytes()
+                val responseHeaders = connection.headerFields.filterKeys { it != null }
                     .mapValues { it.value.joinToString() }
-            )
-            Right(response)
-        } catch (e: SocketTimeoutException) {
-            Left(TimeoutError("Request timed out"))
-        } catch (e: IOException) {
-            e.printStackTrace()
 
-            Left(NoInternetConnectionError("No internet connection"))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Left(UnknownError(e.message ?: "Unknown error"))
-        } finally {
-            connection?.disconnect()
+                val response = when (connection.contentType) {
+                    "application/json" -> JsonResponse(
+                        responseCode,
+                        responseBytes,
+                        responseHeaders
+                    )
+
+                    else -> Response(responseCode, responseBytes, responseHeaders)
+                }
+                Right(response)
+            } catch (e: SocketTimeoutException) {
+                Left(TimeoutError("Request timed out"))
+            } catch (e: IOException) {
+                e.printStackTrace()
+
+                Left(NoInternetConnectionError("No internet connection"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Left(UnknownError(e.message ?: "Unknown error"))
+            } finally {
+                connection?.disconnect()
+            }
         }
     }
 
@@ -152,7 +160,7 @@ data class Request(
     val headers: Map<String, String>? = null
 )
 
-data class Response(
+open class Response(
     val statusCode: Int,
     val body: ByteArray,
     val headers: Map<String, String>
@@ -178,8 +186,21 @@ data class Response(
     }
 }
 
+class JsonResponse(
+    statusCode: Int,
+    body: ByteArray,
+    headers: Map<String, String>,
+) : Response(statusCode, body, headers) {
+    fun json() = JSONObject(String(body))
+    fun jsonArray() = JSONArray(String(body))
+}
+
 interface Interceptor {
     fun onRequest(request: Request): Request
     fun onResponse(response: Response)
     fun onError(error: OperationError)
 }
+
+fun <T> OperationResult<Response>.mapJson(block: (JsonResponse) -> T) = this.filter<JsonResponse> {
+    ExpectedJsonResponseError("expected a json response but got $this")
+}.map(block)

@@ -27,6 +27,13 @@ sealed class Either<L, R> {
         }
     }
 
+    inline fun <reified R2 : R> filter(fallback: (R) -> L): Either<L, R2> {
+        return when (this) {
+            is Right -> if (this.value is R2) Right(this.value) else Left(fallback(this.value))
+            is Left -> Left(this.value)
+        }
+    }
+
     inline fun <L2> orElse(ifLeft: (l: L) -> L2): Either<L2, R> {
         return when (this) {
             is Left -> Left(ifLeft(this.value))

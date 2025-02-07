@@ -8,10 +8,11 @@ abstract class OperationError(val message: String) {
     override fun equals(other: Any?) = other?.hashCode() == hashCode()
 }
 
-class TimeoutError(message: String) : OperationError(message)
-class NoInternetConnectionError(message: String) : OperationError(message)
-class UnknownError(message: String) : OperationError(message)
 class WrappedError(vararg errors: OperationError) :
     OperationError(errors.joinToString("\n") { it.message })
 
+class TimeoutError(message: String) : OperationError(message)
+class NoInternetConnectionError(message: String) : OperationError(message)
+class UnknownError(message: String) : OperationError(message)
 class DownloadError(message: String) : OperationError(message)
+class ExpectedJsonResponseError(message: String): OperationError(message)
