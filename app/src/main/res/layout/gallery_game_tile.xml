@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/gallery_cover"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/gallery_cover"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.github.freitzzz.gameboydb.view.custom.Image
         android:id="@+id/gallery_game_tile_cover"
         android:layout_width="@dimen/gallery_cover"
         android:layout_height="@dimen/gallery_cover"
-        android:contentDescription="@string/game_cover_content_description"
         android:layout_marginBottom="@dimen/large_gap"
+        android:contentDescription="@string/game_cover_content_description"
         android:scaleType="centerCrop"
-        android:src="@drawable/cover"
-        app:shapeAppearance="@style/rounded_shape" />
+        app:shapeAppearance="@style/rounded_shape"
+        tools:src="@drawable/cover" />
 
     <TextView
         android:id="@+id/gallery_game_tile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:textSize="@dimen/title_size"
-        tools:text="Pokemon Red"/>
+        android:textStyle="bold"
+        tools:text="Pokemon Red" />
 
     <TextView
         android:id="@+id/gallery_game_tile_genre"
@@ -31,6 +31,6 @@
         android:layout_marginTop="@dimen/normal_gap"
         android:textColor="@color/secondary"
         android:textSize="@dimen/subtitle_size"
-        tools:text="Fantasy, RPG"/>
+        tools:text="Fantasy, RPG" />
 
 </LinearLayout>

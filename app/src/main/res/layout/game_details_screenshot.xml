@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.freitzzz.gameboydb.view.custom.Image xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/game_details_screenshot"
     android:layout_height="@dimen/game_details_screenshot"
     android:contentDescription="@string/game_screenshot_content_description"
-    app:shapeAppearance="@style/rounded_shape"
     android:scaleType="centerCrop"
-    tools:src="@drawable/cover"/>
+    app:shapeAppearance="@style/rounded_shape"
+    tools:src="@drawable/cover" />

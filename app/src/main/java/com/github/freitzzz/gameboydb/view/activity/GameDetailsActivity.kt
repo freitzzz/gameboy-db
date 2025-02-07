@@ -84,7 +84,7 @@ class GameDetailsActivity : AppActivity(R.layout.activity_game_details) {
         ).show()
 
         viewOf<ImageView>(R.id.game_details_sheet_esrb_rating).setImageResource(game.esrb.drawableRes())
-        viewOf<ImageView>(R.id.game_details_cover).setImageURI(game.thumbnail)
+        viewOf<ImageView>(R.id.game_details_cover).setImageURI(game.cover)
         viewOf<CircularProgressIndicator>(R.id.game_rating_progress_indicator).progress =
             game.rating?.times(10)?.toInt() ?: 0
 

@@ -13,16 +13,23 @@ import kotlinx.coroutines.launch
 class ImageLoaderViewModel : ViewModel() {
     private val downloadImage by lazy { vault().get<DownloadImage>() }
 
-    operator fun invoke(image: Uri): LiveData<Uri> {
-        return MutableLiveData<Uri>().apply {
-            viewModelScope.launch {
-                onIO {
-                    val url = image.toString()
-                    val result = downloadImage(url)
-                    result.each {
-                        val uri = Uri.fromFile(it)
-                        loadedImages[url] = uri
-                        postValue(uri)
+    operator fun invoke(image: Uri, block: (Uri) -> Unit) {
+        val url = image.toString()
+        val cached = loadedImages[url]
+
+        if (cached != null) {
+            return block(cached)
+        }
+
+        viewModelScope.launch {
+            onIO {
+                val result = downloadImage(url)
+                result.each {
+                    val uri = Uri.fromFile(it)
+                    loadedImages[url] = uri
+
+                    viewModelScope.launch {
+                        block(uri)
                     }
                 }
             }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.github.freitzzz.gameboydb.view.custom.Image
         android:id="@+id/favorite_game_cover"
         android:layout_width="@dimen/favorite_cover"
         android:layout_height="@dimen/favorite_cover"
