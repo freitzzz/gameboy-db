@@ -1,6 +1,5 @@
 package com.github.freitzzz.gameboydb.view.viewmodel
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,6 @@ import com.github.freitzzz.gameboydb.core.vault
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.data.model.GamePreview
 import com.github.freitzzz.gameboydb.data.model.preview
-import com.github.freitzzz.gameboydb.domain.DownloadImage
 import com.github.freitzzz.gameboydb.domain.GetControversialGames
 import com.github.freitzzz.gameboydb.domain.GetFavoriteGames
 import com.github.freitzzz.gameboydb.domain.GetTopRatedGames
@@ -27,7 +25,6 @@ class GamesViewModel : ViewModel() {
     private val getControversialGames by lazy { vault().get<GetControversialGames>() }
     private val getFavoriteGames by lazy { vault().get<GetFavoriteGames>() }
     private val loadGame by lazy { vault().get<LoadGame>() }
-    private val downloadImage by lazy { vault().get<DownloadImage>() }
     private val gameUpdates by lazy { vault().get<GameUpdates>() }
 
     private val topRatedGames by lazy { MutableLiveData(listOf<GamePreview>()) }
@@ -44,14 +41,9 @@ class GamesViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            val tiles = getTopRatedGames()
-                .unfold { arrayListOf() }
-                .map {
-                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
-                        .map(Uri::fromFile)
-                        .unfold { it.thumbnail }
-                    )
-                }
+            val tiles = getTopRatedGames().unfold {
+                arrayListOf()
+            }
 
             topRatedGames.value = tiles
 
@@ -66,14 +58,9 @@ class GamesViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            val tiles = getControversialGames()
-                .unfold { arrayListOf() }
-                .map {
-                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
-                        .map(Uri::fromFile)
-                        .unfold { it.thumbnail }
-                    )
-                }
+            val tiles = getControversialGames().unfold {
+                arrayListOf()
+            }
 
             controversialGames.value = tiles
         }
@@ -87,14 +74,9 @@ class GamesViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            val tiles = getFavoriteGames()
-                .unfold { arrayListOf() }
-                .map {
-                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
-                        .map(Uri::fromFile)
-                        .unfold { it.thumbnail }
-                    )
-                }
+            val tiles = getFavoriteGames().unfold {
+                arrayListOf()
+            }
 
             favoriteGames.postValue(tiles)
             gameUpdates.onEach {
@@ -117,12 +99,7 @@ class GamesViewModel : ViewModel() {
     fun load(preview: GamePreview, onLoad: (Game) -> Unit) {
         viewModelScope.launch {
             onIO {
-                loadGame(preview.id).map {
-                    it.copy(thumbnail = downloadImage(it.thumbnail.toString())
-                        .map(Uri::fromFile)
-                        .unfold { it.thumbnail }
-                    )
-                }.each(onLoad)
+                loadGame(preview.id).each(onLoad)
             }
         }
     }
