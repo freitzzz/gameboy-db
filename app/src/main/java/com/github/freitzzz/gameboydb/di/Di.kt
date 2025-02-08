@@ -4,10 +4,10 @@ import android.content.Context
 import com.github.freitzzz.gameboydb.core.Vault
 import com.github.freitzzz.gameboydb.data.http.SSLBypassNetworkingClient
 import com.github.freitzzz.gameboydb.data.repository.AssetsRepository
-import com.github.freitzzz.gameboydb.data.repository.FakeGamesRepository
 import com.github.freitzzz.gameboydb.data.repository.GamesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
 import com.github.freitzzz.gameboydb.data.repository.PreferencesRepository
+import com.github.freitzzz.gameboydb.data.repository.DbApiGamesRepository
 import com.github.freitzzz.gameboydb.data.repository.SharedPreferencesRepository
 import com.github.freitzzz.gameboydb.domain.ApplyTheme
 import com.github.freitzzz.gameboydb.domain.DownloadImage
@@ -35,7 +35,7 @@ private fun registerData(
     vault: Vault,
     context: Context,
 ) = vault.apply {
-    store<GamesRepository>(FakeGamesRepository())
+    store<GamesRepository>(DbApiGamesRepository(client = SSLBypassNetworkingClient("https://gameboydb.guackamollyapps.com")))
     store<AssetsRepository>(
         NetworkingAssetsRepository(
             SSLBypassNetworkingClient(""),

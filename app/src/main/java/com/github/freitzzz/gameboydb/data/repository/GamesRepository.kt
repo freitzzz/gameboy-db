@@ -3,10 +3,17 @@ package com.github.freitzzz.gameboydb.data.repository
 import androidx.core.net.toUri
 import com.github.freitzzz.gameboydb.core.OperationResult
 import com.github.freitzzz.gameboydb.core.Right
+import com.github.freitzzz.gameboydb.core.map
+import com.github.freitzzz.gameboydb.data.http.JsonResponse
+import com.github.freitzzz.gameboydb.data.http.NetworkingClient
+import com.github.freitzzz.gameboydb.data.http.mapJson
 import com.github.freitzzz.gameboydb.data.model.ESRB
 import com.github.freitzzz.gameboydb.data.model.Game
 import com.github.freitzzz.gameboydb.data.model.GamePreview
+import com.github.freitzzz.gameboydb.data.model.game
+import com.github.freitzzz.gameboydb.data.model.gamePreview
 import com.github.freitzzz.gameboydb.data.model.preview
+import org.json.JSONObject
 
 interface GamesRepository {
     suspend fun top(): OperationResult<List<GamePreview>>
@@ -18,11 +25,51 @@ interface GamesRepository {
     suspend fun unmarkFavorite(game: Game): OperationResult<Unit>
 }
 
+class DbApiGamesRepository(
+    private val client: NetworkingClient,
+) : GamesRepository {
+    override suspend fun top(): OperationResult<List<GamePreview>> {
+        return client.get("/previews?rating=high").mapJson {
+            it.jsonArray().map(JSONObject::gamePreview)
+        }
+    }
+
+    override suspend fun controversial(): OperationResult<List<GamePreview>> {
+        return client.get("/previews?rating=low").mapJson {
+            it.jsonArray().map(JSONObject::gamePreview)
+        }
+    }
+
+    override suspend fun favorite(): OperationResult<List<GamePreview>> {
+        return Right(listOf())
+    }
+
+    override suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>> {
+        return client.get("/previews?name=$query&page=${page}").mapJson {
+            it.jsonArray().map(JSONObject::gamePreview)
+        }
+    }
+
+    override suspend fun find(id: String): OperationResult<Game> {
+        return client.get("/details/$id").mapJson {
+            it.json().game()
+        }
+    }
+
+    override suspend fun markFavorite(game: Game): OperationResult<Unit> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
+        TODO("Not yet implemented")
+    }
+}
+
 class FakeGamesRepository : GamesRepository {
     private val games = arrayListOf(
         Game(
             id = "game-id-1",
-            title = "Pokemon Red",
+            name = "Pokemon Red",
             description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
             promo = """
                             Gotta catch 'em all!
@@ -68,7 +115,7 @@ class FakeGamesRepository : GamesRepository {
         ),
         Game(
             id = "game-id-2",
-            title = "Kirby's Dream Land 2",
+            name = "Kirby's Dream Land 2",
             description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
             releaseYear = 1996,
             rating = 9.3f,
@@ -87,7 +134,7 @@ class FakeGamesRepository : GamesRepository {
         ),
         Game(
             id = "game-id-3",
-            title = "Donkey Kong Land",
+            name = "Donkey Kong Land",
             description = "Pokémon is a role-playing game. In a departure from traditional RPGs, however, the player's Pokémon fight instead of the player himself with one of the main goals to collect all the available monsters.",
             releaseYear = 1996,
             rating = 9.3f,
@@ -102,7 +149,7 @@ class FakeGamesRepository : GamesRepository {
         ),
         Game(
             id = "game-id-4",
-            title = "Men in Black: The Series",
+            name = "Men in Black: The Series",
             description = "Evil alien races are infiltrating New York, and it's up to the Men in Black to stop them. In the game the player assume the role of rookie agent J as he single-handedly takes on the invasion in order to stop the mastermind Alpha (a mutated ex-MIB) and save Earth.",
             releaseYear = 1996,
             rating = 4.4f,
@@ -117,7 +164,7 @@ class FakeGamesRepository : GamesRepository {
         ),
         Game(
             id = "game-id-5",
-            title = "Shrek: Fairy Tale Freakdown",
+            name = "Shrek: Fairy Tale Freakdown",
             description = "In this 2D one-on-one fighting game, you can choose to play as characters from the movie Shrek, including Shrek himself, the Gingerbread Man, Thelonius, and six other included personalities. All characters have their own signature moves, but as you move on through the quest more special powers are unlocked - these include speed, invincibility, and strength.",
             releaseYear = 1996,
             rating = 4.5f,
@@ -133,7 +180,7 @@ class FakeGamesRepository : GamesRepository {
         ),
         Game(
             id = "game-id-6",
-            title = "Soccer Mania",
+            name = "Soccer Mania",
             description = "Soccer Mania is a soccer game with cartoon graphics. The game features six teams (Japan, USA, Brazil, England, Germany and France) and the player chooses one of them. The goal is to win a championship by defeating all other five teams, followed by a final match against the All-Star Team. There is only a part of the playfield shown at a time and the rest of the playfield scrolls - the goals are positioned vertically.",
             releaseYear = 1996,
             rating = 4.5f,
@@ -170,7 +217,7 @@ class FakeGamesRepository : GamesRepository {
         return Right(
             games2
                 .drop((page - 1) * 5)
-                .take(5).filter { it.title.lowercase().contains(query) }
+                .take(5).filter { it.name.lowercase().contains(query) }
                 .map(Game::preview)
         )
     }
