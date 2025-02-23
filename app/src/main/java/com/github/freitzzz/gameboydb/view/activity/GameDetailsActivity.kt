@@ -67,7 +67,7 @@ class GameDetailsActivity : AppActivity(R.layout.activity_game_details) {
             R.id.game_details_sheet_developers to game.developers.joinToString("\n"),
             R.id.game_details_sheet_publishers to game.publishers.joinToString("\n"),
             R.id.game_details_sheet_release_year to game.releaseYear.toString(),
-            R.id.game_rating_text to game.rating.toString(),
+            R.id.game_rating_text to game.rating?.div(10).toString(),
         )
 
         withRes(
@@ -86,7 +86,7 @@ class GameDetailsActivity : AppActivity(R.layout.activity_game_details) {
         viewOf<ImageView>(R.id.game_details_sheet_esrb_rating).setImageResource(game.esrb.drawableRes())
         viewOf<ImageView>(R.id.game_details_cover).setImageURI(game.cover)
         viewOf<CircularProgressIndicator>(R.id.game_rating_progress_indicator).progress =
-            game.rating?.times(10)?.toInt() ?: 0
+            game.rating?.toInt() ?: 0
 
         viewOf<ImageView>(R.id.navigable_top_bar_primary_action).apply {
             val res = if (game.favorite) R.drawable.bookmark_simple_fill

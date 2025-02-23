@@ -18,11 +18,8 @@ import org.json.JSONObject
 interface GamesRepository {
     suspend fun top(): OperationResult<List<GamePreview>>
     suspend fun controversial(): OperationResult<List<GamePreview>>
-    suspend fun favorite(): OperationResult<List<GamePreview>>
     suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>>
     suspend fun find(id: String): OperationResult<Game>
-    suspend fun markFavorite(game: Game): OperationResult<Unit>
-    suspend fun unmarkFavorite(game: Game): OperationResult<Unit>
 }
 
 class DbApiGamesRepository(
@@ -40,10 +37,6 @@ class DbApiGamesRepository(
         }
     }
 
-    override suspend fun favorite(): OperationResult<List<GamePreview>> {
-        return Right(listOf())
-    }
-
     override suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>> {
         return client.get("/previews?name=$query&page=${page}").mapJson {
             it.jsonArray().map(JSONObject::gamePreview)
@@ -54,14 +47,6 @@ class DbApiGamesRepository(
         return client.get("/details/$id").mapJson {
             it.json().game()
         }
-    }
-
-    override suspend fun markFavorite(game: Game): OperationResult<Unit> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
-        TODO("Not yet implemented")
     }
 }
 
@@ -89,7 +74,6 @@ class FakeGamesRepository : GamesRepository {
             critics = 90f,
             releaseYear = 1998,
             esrb = ESRB.EVERYONE,
-            favorite = true,
             genres = arrayListOf(
                 "Role-playing"
             ),
@@ -169,7 +153,6 @@ class FakeGamesRepository : GamesRepository {
             releaseYear = 1996,
             rating = 4.5f,
             thumbnail = "https://cdn.mobygames.com/0e98b27c-aba3-11ed-98cd-02420a00019e.webp".toUri(),
-            favorite = true,
             screenshots = arrayListOf(),
             developers = arrayListOf(),
             publishers = arrayListOf(),
@@ -207,12 +190,6 @@ class FakeGamesRepository : GamesRepository {
         )
     }
 
-    override suspend fun favorite(): OperationResult<List<GamePreview>> {
-        return Right(
-            games.filter { it.favorite }.map(Game::preview)
-        )
-    }
-
     override suspend fun search(query: String, page: Int): OperationResult<List<GamePreview>> {
         return Right(
             games2
@@ -225,17 +202,5 @@ class FakeGamesRepository : GamesRepository {
     override suspend fun find(id: String): OperationResult<Game> {
         val game = games.first { it.id == id }
         return Right(game)
-    }
-
-    override suspend fun markFavorite(game: Game): OperationResult<Unit> {
-        val idx = games.indexOfFirst { it.id == game.id }
-        games[idx] = game.copy(favorite = true)
-        return Right(Unit)
-    }
-
-    override suspend fun unmarkFavorite(game: Game): OperationResult<Unit> {
-        val idx = games.indexOfFirst { it.id == game.id }
-        games[idx] = game.copy(favorite = false)
-        return Right(Unit)
     }
 }

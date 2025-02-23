@@ -10,6 +10,9 @@ sealed class Option<T> {
         is Some -> value
         else -> default()
     }
+
+    fun present() = this is Some
+    fun value() = (this as Some).value
 }
 
 data class Some<T>(

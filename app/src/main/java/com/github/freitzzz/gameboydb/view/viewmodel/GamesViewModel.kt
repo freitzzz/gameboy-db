@@ -78,7 +78,7 @@ class GamesViewModel : ViewModel() {
                 arrayListOf()
             }
 
-            favoriteGames.postValue(tiles)
+            favoriteGames.postValue(tiles.map { it.preview() })
             gameUpdates.onEach {
                 val preview = it.preview()
                 val games = favoriteGames.value!! as MutableList<GamePreview>

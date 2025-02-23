@@ -8,6 +8,8 @@ import com.github.freitzzz.gameboydb.data.repository.GamesRepository
 import com.github.freitzzz.gameboydb.data.repository.NetworkingAssetsRepository
 import com.github.freitzzz.gameboydb.data.repository.PreferencesRepository
 import com.github.freitzzz.gameboydb.data.repository.DbApiGamesRepository
+import com.github.freitzzz.gameboydb.data.repository.FakeFavoritesRepository
+import com.github.freitzzz.gameboydb.data.repository.FavoritesRepository
 import com.github.freitzzz.gameboydb.data.repository.SharedPreferencesRepository
 import com.github.freitzzz.gameboydb.domain.ApplyTheme
 import com.github.freitzzz.gameboydb.domain.DownloadImage
@@ -36,6 +38,7 @@ private fun registerData(
     context: Context,
 ) = vault.apply {
     store<GamesRepository>(DbApiGamesRepository(client = SSLBypassNetworkingClient("https://gameboydb.guackamollyapps.com")))
+    store<FavoritesRepository>(FakeFavoritesRepository())
     store<AssetsRepository>(
         NetworkingAssetsRepository(
             SSLBypassNetworkingClient(""),
@@ -66,7 +69,7 @@ private fun registerDomain(
     store(GetControversialGames(get()))
     store(GetFavoriteGames(get()))
     store(SearchGames(get()))
-    store(LoadGame(get()))
+    store(LoadGame(get(), get()))
     store(FavoriteGame(get(), get()))
     store(UnfavoriteGame(get(), get()))
 }

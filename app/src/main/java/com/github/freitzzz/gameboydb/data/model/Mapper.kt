@@ -22,7 +22,6 @@ fun JSONObject.game() = Game(
     publishers = getStrings("publishers"),
     screenshots = getJSONArray("screenshots").map { Uri.parse(it.getString("url")) },
     esrb = ESRB.entries[getInt("esrb")],
-    favorite = false,
     promo = optString("promo"),
     trivia = optString("trivia"),
     rating = optInt("rating").toFloat(),

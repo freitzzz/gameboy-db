@@ -1,9 +1,9 @@
 package com.github.freitzzz.gameboydb.domain
 
-import com.github.freitzzz.gameboydb.data.repository.GamesRepository
+import com.github.freitzzz.gameboydb.data.repository.FavoritesRepository
 
 class GetFavoriteGames(
-    private val gamesRepository: GamesRepository,
+    private val repository: FavoritesRepository,
 ) {
-    suspend operator fun invoke() = gamesRepository.favorite()
+    suspend operator fun invoke() = repository.all()
 }
